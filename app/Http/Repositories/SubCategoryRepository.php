@@ -30,12 +30,16 @@ class SubCategoryRepository implements SubCategoryInterface {
 
     public function AddSubCat($request)
     {
+
         $validator = Validator::make($request->all(),[
             'name' => 'required|max:500|unique:subcategories',
+            //'category_id' => 'required|exists:categories',
         ]);
+
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
+
         $this->subcCategoryModel->create([
             'name' => $request->name,
             'category_id' => $request->category_id,

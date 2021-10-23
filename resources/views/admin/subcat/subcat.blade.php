@@ -82,9 +82,9 @@
                         </div>
                         <div class="col-md-8">
                             <label for="cat_name" class="form-label">Category Name</label>
-                          <select class="form-control" name="cat_name">
+                          <select class="form-control" name="category_id" id="category_id">
                               @foreach($cats as $cat)
-                              <option name="category_id" value="{{ $cat->id }}">{{ $cat->name }}</option>
+                              <option name="category_id"  value="{{ $cat->id }}">{{ $cat->name }}</option>
                               @endforeach
                           </select>
                         </div>

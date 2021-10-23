@@ -27,13 +27,13 @@ class CreateProductsTable extends Migration
             $table->string('image_1');
             $table->string('image_2');
             $table->string('image_3');
-            $table->integer('main_slider');
-            $table->integer('mid_slider');
-            $table->integer('hot_deal');
-            $table->integer('hot_new');
-            $table->string('best_rate');
-            $table->integer('trend');
-            $table->integer('status');
+            $table->tinyInteger('main_slider')->nullable();
+            $table->tinyInteger('mid_slider')->nullable();
+            $table->tinyInteger('hot_deal')->nullable();
+            $table->tinyInteger('hot_new')->nullable();
+            $table->tinyInteger('best_rate')->nullable();
+            $table->tinyInteger('trend')->nullable();
+            $table->tinyInteger('status');
 
             $table->bigInteger('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

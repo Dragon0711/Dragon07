@@ -8,9 +8,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-
-
 
 
 class ProductRepository implements ProductInterface {
@@ -42,52 +41,89 @@ class ProductRepository implements ProductInterface {
     public function CreateProducts($request){
         $cats =  $this->categoryModel::all();
         $brands = $this->brandModel::all();
+        $subCat = $this->subCatModel::all();
 
-        return view('admin.products.create',compact('cats','brands'));
+        return view('admin.products.create',compact('cats','brands','subCat'));
+
+        /* return view('admin.products.create', [
+            'cats'=>$cats,
+            'brands'=>$brands]);*/
+
     } // End Method
 
 
     public function storeProducts($request){
-        $data['name'] = $request->name;
-        $data['code'] = $request->code;
-        $data['discount_price'] = $request->discount_price;
-        $data['quantity'] = $request->quantity;
-        $data['size'] = $request->size;
-        $data['color'] = $request->color;
-        $data['price'] = $request->price;
-        $data['category_id'] = $request->category_id;
-        $data['subcategory_id'] = $request->subcategory_id;
-        $data['brand_id'] = $request->brand_id;
-        $data['video'] = $request->video;
-        $data['desc'] = $request->desc;
-        $data['main_slider'] = $request->main_slider;
-        $data['mid_slider'] = $request->mid_slider;
-        $data['hot_deal'] = $request->hot_deal;
-        $data['hot_new']  = $request->hot_new;
-        $data['best_rate']  = $request->best_rate;
-        $data['trend']  = $request->trend;
-        $data['status']  = 1;
+
+
+        $validator = Validator::make($request->all(),[
+        'name' => 'required|unique:products|max:500',
+        'code' => 'required|numeric',
+        'discount_price' => 'required|numeric',
+        'quantity' => 'required|numeric',
+        'size' => 'required|numeric',
+        'color' => 'required',
+        'price' => 'required|numeric',
+        'video' => 'required|url',
+        'desc' => 'required|max:5000',
+        'image_1' => 'required|mimes:jpg,jpeg,png|max:4096',
+        'image_2' => 'required|mimes:jpg,jpeg,png|max:4096',
+        'image_3' => 'required|mimes:jpg,jpeg,png|max:4096',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        };
+
+        $products = new Product();
+
+        $products['name'] = $request->name;
+        $products['code'] = $request->code;
+        $products['discount_price'] = $request->discount_price;
+        $products['quantity'] = $request->quantity;
+        $products['size'] = $request->size;
+        $products['color'] = $request->color;
+        $products['price'] = $request->price;
+        $products['category_id'] = $request->category_id;
+        $products['subcategory_id'] = $request->subcategory_id;
+        $products['brand_id'] = $request->brand_id;
+        $products['video'] = $request->video;
+        $products['desc'] = $request->desc;
+        $products['main_slider'] = $request->main_slider;
+        $products['mid_slider'] = $request->mid_slider;
+        $products['hot_deal'] = $request->hot_deal;
+        $products['hot_new']  = $request->hot_new;
+        $products['best_rate']  = $request->best_rate;
+        $products['trend']  = $request->trend;
+        $products['status']  = 1;
+
         $image_1  = $request->image_1;
         $image_2  = $request->image_2;
         $image_3  =  $request->image_3;
 
-      //  return response()->json($data);
-
-        if ($image_1 && $image_2 && $image_3){
-            $image_one_name = hexdec(uniqid()).'.'.$image_1->getClientOriginalExtension();
-            Image::make($image_1)->resize(300,300)->save('public/upload/product/'.$image_one_name);
-            $data[$image_1] = 'public/upload/product/'.$image_one_name;
-
-            $image_two_name = hexdec(uniqid()).'.'.$image_2->getClientOriginalExtension();
-            Image::make($image_2)->resize(300,300)->save('public/upload/product/'.$image_two_name);
-            $data[$image_2] = 'public/upload/product'.$image_two_name;
-
-            $image_three_name = hexdec(uniqid()).'.'.$image_3->getClientOriginalExtension();
-            Image::make($image_3)->resize(300,300)->save('public/upload/product/'.$image_three_name);
-            $data[$image_3] = 'public/upload/product'.$image_three_name;
 
 
-            $product = DB::table('products')->insert($data);
+
+            if ($request->file('image_1')){
+                $file = $request->file('image_1');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                Image::make(request()->file('image_1'))->resize(300, 200)->save('upload/product'.$filename);
+                $file->move(public_path('upload/product'), $filename);
+                $products['image_1'] = $filename;
+
+                $file = $request->file('image_2');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                Image::make(request()->file('image_2'))->resize(300, 200)->save('upload/product'.$filename);
+                $file->move(public_path('upload/product'), $filename);
+                $products['image_2'] = $filename;
+
+                $file = $request->file('image_3');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                Image::make(request()->file('image_3'))->resize(300, 200)->save('upload/product'.$filename);
+                $file->move(public_path('upload/product'), $filename);
+                $products['image_3'] = $filename;
+
+            }
+
+            $products->save();
 
             $notificat = array(
                 'message' => 'product added Successfully',
@@ -96,10 +132,11 @@ class ProductRepository implements ProductInterface {
             return redirect()->back()->with($notificat);
         }
 
-
-
-
-
+    private function validate($request, array $array)
+    {
     }
 
+
 }
+
+
