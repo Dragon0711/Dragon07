@@ -9,7 +9,9 @@ public function AllProducts();
 
 public function CreateProducts($request);
 
-public function storeProducts($request);
+public function StoreProducts($request);
+
+public function EditProduct($request);
 
 
 

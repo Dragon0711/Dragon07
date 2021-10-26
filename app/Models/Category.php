@@ -14,7 +14,13 @@ class Category extends Model
 
     protected $hidden = ['created_at','updated_at'];
 
+    public function productCat()
+    {
+        return $this->hasMany(Product::class,'product_id','id');
+    }
+
+
     public function subCats(){
-        return $this->hasMany(SubCategory::class,'id','category_id');
+        return $this->hasMany(SubCategory::class,'category_id','id');
     }
 }

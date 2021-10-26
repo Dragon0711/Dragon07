@@ -10,6 +10,7 @@ use App\Models\SubCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use function React\Promise\all;
 
 
 class ProductRepository implements ProductInterface {
@@ -18,6 +19,11 @@ class ProductRepository implements ProductInterface {
     private $categoryModel;
     private $brandModel;
     private $subCat;
+    /**
+     * @var SubCategory
+     */
+    private $subCatModel;
+
     /**
      * @var Product
      */
@@ -33,10 +39,12 @@ class ProductRepository implements ProductInterface {
 
     public function AllProducts()
     {
-        $data = $this->productModel::all();
 
-        return view('admin.products.index');
+        $product = $this->productModel::all();
+
+        return view('admin.products.index',['product'=>$product ]);
     } // End Method
+
 
     public function CreateProducts($request){
         $cats =  $this->categoryModel::all();
@@ -52,7 +60,7 @@ class ProductRepository implements ProductInterface {
     } // End Method
 
 
-    public function storeProducts($request){
+    public function StoreProducts($request){
 
 
         $validator = Validator::make($request->all(),[
@@ -105,20 +113,20 @@ class ProductRepository implements ProductInterface {
             if ($request->file('image_1')){
                 $file = $request->file('image_1');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_1'))->resize(300, 200)->save('upload/product'.$filename);
-                $file->move(public_path('upload/product'), $filename);
+                Image::make(request()->file('image_1'))->resize(300, 200)->save('public/upload/product'.$filename);
+                $file->move(public_path('public/upload/product'), $filename);
                 $products['image_1'] = $filename;
 
                 $file = $request->file('image_2');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_2'))->resize(300, 200)->save('upload/product'.$filename);
-                $file->move(public_path('upload/product'), $filename);
+                Image::make(request()->file('image_2'))->resize(300, 200)->save('public/upload/product'.$filename);
+                $file->move(public_path('public/upload/product'), $filename);
                 $products['image_2'] = $filename;
 
                 $file = $request->file('image_3');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_3'))->resize(300, 200)->save('upload/product'.$filename);
-                $file->move(public_path('upload/product'), $filename);
+                Image::make(request()->file('image_3'))->resize(300, 200)->save('public/upload/product'.$filename);
+                $file->move(public_path('public/upload/product'), $filename);
                 $products['image_3'] = $filename;
 
             }
@@ -130,11 +138,21 @@ class ProductRepository implements ProductInterface {
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notificat);
-        }
-
-    private function validate($request, array $array)
-    {
     }
+
+    public function EditProduct($request)
+    {
+        $cats =  $this->categoryModel::all();
+        $brands = $this->brandModel::all();
+        $subCat = $this->subCatModel::all();
+        return view('admin.products.edit',[
+            'cats'=>$cats,
+            'brands'=>$brands,
+            'subCat'=>$subCat,
+        ]);
+    }
+
+
 
 
 }

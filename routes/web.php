@@ -87,7 +87,9 @@ Route::get('admin/delete/brands/{id}',[BrandsController::class,'deleteBrand']);
 
 Route::get('admin/all/products',[ProductController::class,'AllProducts'])->name('all.products');
 Route::get('admin/create/products',[ProductController::class,'CreateProducts'])->name('create.product');
-Route::any('admin/store/products',[ProductController::class,'storeProducts'])->name('store.product');
+Route::post('admin/store/products',[ProductController::class,'StoreProducts'])->name('store.product');
+Route::get('admin/edit/products/{$id}',[ProductController::class,'EditProduct'])->name('edit.product');
+Route::post('admin/update/products',[ProductController::class,'UpdateProduct'])->name('update.product');
 
   /**** User Route Section *****/
 

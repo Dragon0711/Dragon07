@@ -30,9 +30,14 @@ class ProductController extends Controller
         return $this->productInterface->CreateProducts($request);
     }
 
-    public function storeProducts(Request $request)
+    public function StoreProducts(Request $request)
     {
         return $this->productInterface->storeProducts($request);
+    }
+
+    public function EditProduct(Request $request)
+    {
+        return $this->productInterface->EditProduct($request);
     }
 
 

@@ -91,13 +91,6 @@
                             @enderror
                     </div>
                 </div><!-- col-4 -->
-{{--                <div class="col-lg-4">--}}
-{{--                    <div class="form-group mg-b-10-force">--}}
-{{--                        <label class="form-control-label">quantity: <span class="tx-danger">*</span></label>--}}
-{{--                        <input class="form-control" type="text" name="quantity" value="" placeholder="Enter quantity">--}}
-{{--                    </div>--}}
-{{--                </div><!-- col-4 -->--}}
-
                 <div class="col-lg-4">
                     <div class="form-group mg-b-10-force">
                         <label class="form-control-label">Category: <span class="tx-danger">*</span></label>
