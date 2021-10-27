@@ -6,12 +6,12 @@
 
     <div class="sl-pagebody">
         <div class="sl-page-title">
-            <h5>Category list</h5>
+            <h5>Products list</h5>
         </div>
         <!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">Category Table
+            <h6 class="card-body-title">Products Table
                 <a href="" class="btn btn-sm btn-success" style="float: right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
             </h6>
 
@@ -53,8 +53,12 @@
                                 <td>{{ $info->quantity }}</td>
                                 <td>{{ $info->status }}</td>
                                 <td>
-                                    <a href="{{ URL("admin/edit/categories/$info->id") }}" class="btn btn-sm btn-info edit-btn">edit</a>
-                                    <a href="{{ URL("admin/delete/categories/$info->id") }}" class="btn btn-sm btn-danger" id="delete">delete</a>
+                                    <a href="{{ URL("admin/edit/products/$info->id") }}" class="btn btn-sm btn-info edit-btn ">edit</a>
+                                    <a href="{{ URL("admin/delete/products/$info->id") }}" class="btn btn-sm btn-danger" id="delete">delete</a>
+{{--                                    <form action="{{ URL("admin/delete/products/$info->id") }}" method="post" >--}}
+{{--                                        @csrf--}}
+{{--                                        <button type="submit" class="btn btn-sm btn-danger " id="delete">delete</button>--}}
+{{--                                    </form>--}}
                                 </td>
                             </tr>
                         @endforeach

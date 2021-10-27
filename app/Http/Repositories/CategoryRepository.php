@@ -65,10 +65,12 @@ class CategoryRepository implements CategoryInterface{
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
-        $olddata= $this->categoryModel::find($request->id);
+
+        $olddata = $this->categoryModel::find($request->id);
         $olddata->update([
             'name' => $request->name,
         ]);
+
         $notificat = array(
             'message' => 'Category edited Successfully',
             'alert-type' => 'success'

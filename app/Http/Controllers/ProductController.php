@@ -40,5 +40,15 @@ class ProductController extends Controller
         return $this->productInterface->EditProduct($request);
     }
 
+    public function UpdateProduct(Request $request)
+    {
+        return $this->productInterface->UpdateProduct($request);
+    }
+
+    public function DeleteProduct(Request $request)
+    {
+        return $this->productInterface->DeleteProduct($request);
+    }
+
 
 }

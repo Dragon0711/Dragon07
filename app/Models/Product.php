@@ -9,6 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
+
     public function categoryT(){
 
         return $this->belongsTo(Category::class,'category_id','id');
@@ -16,6 +17,10 @@ class Product extends Model
     public function brandT(){
 
         return $this->belongsTo(Brand::class,'brand_id','id');
+    }
+
+    public function subCat(){
+        return $this->belongsTo(subCategory::class,'subcategory_id','id');
     }
 
     protected $fillable = ['name','code','price','discount_price','quantity','desc','color','size','video',

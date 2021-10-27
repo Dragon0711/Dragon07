@@ -248,19 +248,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
-  <script type="text/javascript">
-      function readURL(input){
-          if (input.files && input.files[0]) {
-              var reader = new FileReader();
-              reader.onload = function(e) {
-                  $('#one')
-                      .attr('src', e.target.result)
-                      .width(80)
-                      .height(80);
-              };
-              reader.readAsDataURL(input.files[0]);
-          }
-      }
-  </script>
+
 
 @endsection

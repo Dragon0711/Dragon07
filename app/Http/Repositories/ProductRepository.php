@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
@@ -113,20 +114,20 @@ class ProductRepository implements ProductInterface {
             if ($request->file('image_1')){
                 $file = $request->file('image_1');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_1'))->resize(300, 200)->save('public/upload/product'.$filename);
-                $file->move(public_path('public/upload/product'), $filename);
+                Image::make(request()->file('image_1'))->resize(300, 200)->save("upload/product/$filename");
+                $file->move(public_path('upload/product'), $filename);
                 $products['image_1'] = $filename;
 
                 $file = $request->file('image_2');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_2'))->resize(300, 200)->save('public/upload/product'.$filename);
-                $file->move(public_path('public/upload/product'), $filename);
+                Image::make(request()->file('image_2'))->resize(300, 200)->save("upload/product/$filename");
+                $file->move(public_path('upload/product'), $filename);
                 $products['image_2'] = $filename;
 
                 $file = $request->file('image_3');
                 $filename = date('YmdHi') . $file->getClientOriginalName();
-                Image::make(request()->file('image_3'))->resize(300, 200)->save('public/upload/product'.$filename);
-                $file->move(public_path('public/upload/product'), $filename);
+                Image::make(request()->file('image_3'))->resize(300, 200)->save("upload/product/$filename");
+                $file->move(public_path('upload/product'), $filename);
                 $products['image_3'] = $filename;
 
             }
@@ -138,18 +139,105 @@ class ProductRepository implements ProductInterface {
                 'alert-type' => 'success'
             );
             return redirect()->back()->with($notificat);
-    }
+    }//End Method
 
     public function EditProduct($request)
     {
-        $cats =  $this->categoryModel::all();
-        $brands = $this->brandModel::all();
-        $subCat = $this->subCatModel::all();
-        return view('admin.products.edit',[
-            'cats'=>$cats,
-            'brands'=>$brands,
-            'subCat'=>$subCat,
+        $product = $this->productModel::findOrFail($request->id);
+
+        return view('admin.products.edit',compact('product'));
+
+    }//End Method
+
+
+
+    public function UpdateProduct($request)
+    {
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|unique:products|max:500',
+            'code' => 'required|numeric',
+            'discount_price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'size' => 'required|numeric',
+            'color' => 'required',
+            'price' => 'required|numeric',
+            'video' => 'required|url',
+            'desc' => 'required|max:5000',
+            'image_1' => 'required|mimes:jpg,jpeg,png|max:4096',
+            'image_2' => 'required|mimes:jpg,jpeg,png|max:4096',
+            'image_3' => 'required|mimes:jpg,jpeg,png|max:4096',
         ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        };
+
+        $products = $this->productModel::find($request->id);
+
+        $image_1  = $request->image_1;
+        $image_2  = $request->image_2;
+        $image_3  =  $request->image_3;
+
+        if ($request->file('image_1')){
+            $file = $request->file('image_1');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            Image::make(request()->file('image_1'))->resize(300, 200)->save("upload/product/$filename");
+            $file->move(public_path('upload/product'), $filename);
+            $products['image_1'] = $filename;
+
+            $file = $request->file('image_2');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            Image::make(request()->file('image_2'))->resize(300, 200)->save("upload/product/$filename");
+            $file->move(public_path('upload/product'), $filename);
+            $products['image_2'] = $filename;
+
+            $file = $request->file('image_3');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            Image::make(request()->file('image_3'))->resize(300, 200)->save("upload/product/$filename");
+            $file->move(public_path('upload/product'), $filename);
+            $products['image_3'] = $filename;
+
+        }
+
+        $products->update([
+        'name' => $request->name,
+        'code' => $request->code,
+        'discount_price' => $request->discount_price,
+        'quantity' => $request->quantity,
+        'size' => $request->size,
+        'color' => $request->color,
+        'price' => $request->price,
+        'category_id' => $request->category_id,
+        'subcategory_id' => $request->subcategory_id,
+        'brand_id' => $request->brand_id,
+        'video' => $request->video,
+        'desc' => $request->desc,
+        'main_slider' => $request->main_slider,
+        'mid_slider' => $request->mid_slider,
+        'hot_deal' => $request->hot_deal,
+        'hot_new'  => $request->hot_new,
+        'best_rate'  => $request->best_rate,
+        'trend'  => $request->trend,
+        'status'  => 1,
+        ]);
+
+        $notificat = array(
+            'message' => 'product Updated Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect(route('all.products'))->with($notificat);
+    } //End Method
+
+
+
+    public function DeleteProduct($request)
+    {
+        $this->productModel::where('id',$request->id)->delete();
+
+        $notificat = array(
+            'message' => 'product added Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notificat);
     }
 
 
