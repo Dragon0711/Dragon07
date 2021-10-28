@@ -92,6 +92,9 @@ Route::get('admin/edit/products/{id}',[ProductController::class,'EditProduct']);
 Route::post('admin/update/products/{id}',[ProductController::class,'UpdateProduct'])->name('update.product');
 Route::get('admin/delete/products/{id}',[ProductController::class,'DeleteProduct']);
 
+Route::get('admin/product/active/{id}',[ProductController::class,'Active']);
+Route::get('admin/product/disable/{id}',[ProductController::class,'Disable']);
+
   /**** User Route Section *****/
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {

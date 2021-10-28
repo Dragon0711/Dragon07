@@ -50,5 +50,15 @@ class ProductController extends Controller
         return $this->productInterface->DeleteProduct($request);
     }
 
+    public function Active(Request $request)
+    {
+        return $this->productInterface->Active($request);
+    }
+
+    public function Disable(Request $request)
+    {
+        return $this->productInterface->Disable($request);
+    }
+
 
 }

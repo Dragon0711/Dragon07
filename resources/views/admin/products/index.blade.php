@@ -12,7 +12,7 @@
 
         <div class="card pd-20 pd-sm-40">
             <h6 class="card-body-title">Products Table
-                <a href="" class="btn btn-sm btn-success" style="float: right;" data-toggle="modal" data-target="#modaldemo3">Add New</a>
+                <a href="{{route('create.product')}}" class="btn btn-sm btn-success" style="float: right;" >Add New</a>
             </h6>
 
             <div class="table-wrapper">
@@ -51,14 +51,26 @@
                                 <td>{{ $info->categoryT->name }}</td>
                                 <td> {{ $info->brandT->name ?? 'None' }} </td>
                                 <td>{{ $info->quantity }}</td>
-                                <td>{{ $info->status }}</td>
                                 <td>
-                                    <a href="{{ URL("admin/edit/products/$info->id") }}" class="btn btn-sm btn-info edit-btn ">edit</a>
-                                    <a href="{{ URL("admin/delete/products/$info->id") }}" class="btn btn-sm btn-danger" id="delete">delete</a>
+                                    @if($info->status == 1)
+                                 <i class="btn-sm btn-success">active</i>
+                                    @else
+                                 <i class="btn-sm btn-warning">disable</i>
+                                        @endif
+                                </td>
+                                <td>
+                                    <a href="{{ URL("admin/edit/products/$info->id") }}" class="btn btn-sm btn-info edit-btn" title="Edit"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ URL("admin/delete/products/$info->id") }}" class="btn btn-sm btn-danger" id="delete" title="Delete"><i class="fa fa-trash"></i> </a>
 {{--                                    <form action="{{ URL("admin/delete/products/$info->id") }}" method="post" >--}}
 {{--                                        @csrf--}}
 {{--                                        <button type="submit" class="btn btn-sm btn-danger " id="delete">delete</button>--}}
 {{--                                    </form>--}}
+                                    @if($info->status == 1)
+                                        <a href="{{ url("admin/product/disable/$info->id") }}" class="btn btn-sm btn-info" title="Disable"> <i class="fa fa-thumbs-down"> </i> </a>
+                                    @else
+                                        <a href="{{ url("admin/product/active/$info->id") }}" class="btn btn-sm btn-info" title="Active"> <i class="fa fa-thumbs-up"> </i> </a>
+
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

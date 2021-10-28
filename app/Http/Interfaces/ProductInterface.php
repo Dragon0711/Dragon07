@@ -17,6 +17,10 @@ public function UpdateProduct($request);
 
 public function DeleteProduct($request);
 
+public function Active($request);
+
+public function Disable($request);
+
 
 
 }

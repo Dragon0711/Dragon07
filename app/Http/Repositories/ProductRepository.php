@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use function React\Promise\all;
@@ -231,6 +232,15 @@ class ProductRepository implements ProductInterface {
 
     public function DeleteProduct($request)
     {
+        $product = $this->productModel::where('id',$request->id)->first();
+
+        $image1 = $product->image_1;
+        $image2 = $product->image_2;
+        $image3 = $product->image_3;
+        unlink("upload/product/$image1");
+        unlink("upload/product/$image2");
+        unlink("upload/product/$image3");
+
         $this->productModel::where('id',$request->id)->delete();
 
         $notificat = array(
@@ -241,6 +251,32 @@ class ProductRepository implements ProductInterface {
     }
 
 
+
+    public function Active($request)
+    {
+        $this->productModel::where('id',$request->id)->update([
+            'status' => 1,
+        ]);
+        $notificat = array(
+            'message' => 'product active Successfully',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notificat);
+    }
+
+    public function Disable($request)
+    {
+        $this->productModel::where('id',$request->id)->update([
+            'status' => 0,
+        ]);
+        $notificat = array(
+            'message' => 'product Disable',
+            'alert-type' => 'warning'
+        );
+
+        return redirect()->back()->with($notificat);
+    }
 
 
 }
