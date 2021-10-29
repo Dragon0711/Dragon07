@@ -142,6 +142,7 @@ class ProductRepository implements ProductInterface {
             return redirect()->back()->with($notificat);
     }//End Method
 
+
     public function EditProduct($request)
     {
         $product = $this->productModel::findOrFail($request->id);
@@ -155,7 +156,7 @@ class ProductRepository implements ProductInterface {
     public function UpdateProduct($request)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|unique:products|max:500',
+            'name' => 'required|max:500',
             'code' => 'required|numeric',
             'discount_price' => 'required|numeric',
             'quantity' => 'required|numeric',
@@ -173,6 +174,14 @@ class ProductRepository implements ProductInterface {
         };
 
         $products = $this->productModel::find($request->id);
+
+
+        $image1 = $products->image_1;
+        $image2 = $products->image_2;
+        $image3 = $products->image_3;
+        unlink("upload/product/$image1");
+        unlink("upload/product/$image2");
+        unlink("upload/product/$image3");
 
         $image_1  = $request->image_1;
         $image_2  = $request->image_2;
