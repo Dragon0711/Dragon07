@@ -9,6 +9,7 @@ use App\Http\Controllers\NewsLaterController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Web\EndUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,9 +27,12 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/', function () {
-    return view('layout.index');
-});
+/* EndUser Group*/
+//Route::get('/', function () {
+//
+//
+//});
+Route::get('/',[EndUserController::class,'index']);
 
 
 Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function (){

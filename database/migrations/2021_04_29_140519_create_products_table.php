@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('price');
-            $table->string('discount_price');
+            $table->string('discount_price')->nullable();
             $table->string('quantity');
             $table->text('desc');
             $table->string('color');

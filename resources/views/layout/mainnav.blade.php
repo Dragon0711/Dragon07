@@ -1,3 +1,14 @@
+<?php
+
+use App\Models\Category;
+use App\Models\SubCategory;
+
+$c = new Category;
+$cats = $c->all();
+
+
+?>
+
 <!-- Main Navigation -->
 
 <nav class="main_nav">
@@ -16,31 +27,21 @@
                         </div>
 
                         <ul class="cat_menu">
-                            <li><a href="#">Computers & Laptops <i class="fas fa-chevron-right ml-auto"></i></a></li>
-                            <li><a href="#">Cameras & Photos<i class="fas fa-chevron-right"></i></a></li>
+                        @foreach( $cats as $cat)
                             <li class="hassubs">
-                                <a href="#">Hardware<i class="fas fa-chevron-right"></i></a>
+                                <a href="#">{{$cat->name}}<i class="fas fa-chevron-right"></i></a>
                                 <ul>
-                                    <li class="hassubs">
-                                        <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-                                        <ul>
-                                            <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                    <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
+                                    @php
+                                    /*$subCats = \Illuminate\Support\Facades\DB::table('subcategories')->where('category_id',$cat->id)->get();*/
+                                    /* $subCats = \App\Models\SubCategory::get()->where('category_id',$cat->id);*/
+                                     $subCats = \App\Models\SubCategory::where('category_id',$cat->id)->get();
+                                    @endphp
+                                    @foreach($subCats as $subCat)
+                                    <li><a href="#">{{ $subCat->name }}<i class="fas fa-chevron-right"></i></a></li>
+                                    @endforeach
                                 </ul>
                             </li>
-                            <li><a href="#">Smartphones & Tablets<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">TV & Audio<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Gadgets<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Car Electronics<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Video Games & Consoles<i class="fas fa-chevron-right"></i></a></li>
-                            <li><a href="#">Accessories<i class="fas fa-chevron-right"></i></a></li>
+                            @endforeach
                         </ul>
                     </div>
 
@@ -209,15 +210,26 @@
     <div class="banner_background" style="background-image:url({{ asset('frontend/images/banner_background.jpg')}})"></div>
     <div class="container fill_height">
         <div class="row fill_height">
-            <div class="banner_product_image"><img src="{{ asset('frontend/images/banner_product.png')}}" alt=""></div>
+            {{--  this way can use with models relation and methos in side model and here make for each for data or         --}}
+{{--            @foreach($slider as $row)--}}
+
+            <div class="banner_product_image"><img src="{{ asset("upload/product/".$slider->image_1 ?? null)}}" alt=""></div>
             <div class="col-lg-5 offset-lg-4 fill_height">
                 <div class="banner_content">
-                    <h1 class="banner_text">new era of smartphones</h1>
-                    <div class="banner_price"><span>$530</span>$460</div>
-                    <div class="banner_product_name">Apple Iphone 6s</div>
+                    <h1 class="banner_text">{{ $slider->name ?? 'not found' }}</h1>
+
+                    @if($slider->discount_price  == null)
+                        <div class="banner_price">{{$slider->price .'$'}}</div>
+                    @else
+                    <div class="banner_price"><span>{{$slider->price .'$'}}</span>{{$slider->discount_price .'$'}}</div>
+                    @endif
+
+                    <div class="banner_product_name">{{ $slider->brand_name ?? 'not found' }}</div>
                     <div class="button banner_button"><a href="#">Shop Now</a></div>
                 </div>
+{{--                @endforeach--}}
             </div>
         </div>
     </div>
 </div>
+

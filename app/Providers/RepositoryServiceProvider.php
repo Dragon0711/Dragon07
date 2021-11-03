@@ -52,6 +52,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\NewsLaterInterface',
             'App\Http\Repositories\NewsLaterRepository',
         );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Web\EndUserInterface',
+            'App\Http\Repositories\Web\EndUserRepository',
+        );
     }
 
     /**
