@@ -130,7 +130,7 @@
                             <label class="form-control-label">Image One(Main): <span class="tx-danger">*</span></label>
                             <label class="custom-file">
                                 <input type="file" name="image_1" class="custom-file-input" onchange="readURL(this);" >
-                                <img src="{{ asset("upload/product/$product->image_1") }}" width="85">
+                                <img src="{{ asset("upload/product/$product->image_1") }}" width="85" class="mt-3">
                                 <span class="custom-file-control custom-file-control-inverse"></span>
                             </label>
                             @error('image_1')
@@ -144,7 +144,7 @@
                             <label class="form-control-label">Image 2: <span class="tx-danger">*</span></label>
                             <label class="custom-file">
                                 <input type="file" name="image_2" id="file" class="custom-file-input" onchange="readURL(this);" >
-                                <img src="{{ asset("upload/product/$product->image_2") }}" width="85" >
+                                <img src="{{ asset("upload/product/$product->image_2") }}" width="85" class="mt-3">
                                 <span class="custom-file-control custom-file-control-primary"></span>
                             </label>
                             @error('image_2')
@@ -158,8 +158,8 @@
                             <label class="form-control-label">Image 3: <span class="tx-danger">*</span></label>
                             <label class="custom-file">
                                 <input type="file" name="image_3" id="file" class="custom-file-input" onchange="readURL(this);" >
-                                <img src="{{ asset("upload/product/$product->image_3") }}" width="85" >
-                                <span class="custom-file-control custom-file-control-primary "></span>
+                                <img src="{{ asset("upload/product/$product->image_3") }}" width="85" class="mt-3">
+                                <span class="custom-file-control custom-file-control-primary"></span>
                             </label>
                             @error('image_3')
                             {{ $message }}
@@ -168,7 +168,7 @@
                     </div><!-- col-4 -->
 
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mt-5">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label mt-5">Video Link: <span class="tx-danger">*</span></label>
                             <input class="form-control" type="text" name="video" value="{{$product->video}}" placeholder="Enter Video Link">

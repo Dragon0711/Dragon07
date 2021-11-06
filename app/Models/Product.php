@@ -24,6 +24,14 @@ class Product extends Model
         return $this->belongsTo(subCategory::class,'subcategory_id','id');
     }
 
+
+
+   /* public function getDiscountAttribute()
+    {
+        return ceil(($this->price - $this->discount_price)/$this->price*100);
+    }*/
+
+
     protected $fillable = [
         'name',
         'code',

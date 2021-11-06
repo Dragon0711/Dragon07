@@ -30,6 +30,29 @@ class EndUserRepository implements EndUserInterface
 
     public function index()
     {
+
+        $products = $this->productModel::all();
+
+        $featured = DB::table('products')->where('status',1)
+            ->orderBy('id','DESC')->limit(8)->get();
+
+        $trend = DB::table('products')->where('status',1)
+            ->where('trend',1)->orderBy('id','DESC')
+            ->limit(8)->get();
+
+        $best =DB::table('products')->where('status',1)
+            ->where('best_rate',1)->orderBy('id','DESC')
+            ->limit(8)->get();
+
+
+
+       /* $mount = $this->productModel::all();
+        $product = $mount->price - $mount->discount_price;
+        $discount = ($product->discount_price / $product->price * 100);*/
+
+
+
+
         $slider = DB::table('products')
             ->join('brands','products.brand_id','brands.id')
             ->select('products.*','brands.name as brand_name')
@@ -38,7 +61,9 @@ class EndUserRepository implements EndUserInterface
 //        we can use this models relation  and send data like array and make foreach there on data
 //        $slider = $this->productModel::get()->where('main_slider',1);
 
-        return view('layout.index',compact('slider'));
+        return view('layout.index',compact('slider' , 'featured' ,'products','trend','best'));
 //        return view('layout.index',['slider' => $slider]);
     }
+
+
 }
