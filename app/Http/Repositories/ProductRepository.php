@@ -165,9 +165,9 @@ class ProductRepository implements ProductInterface {
             'price' => 'required|numeric',
             'video' => 'required|url',
             'desc' => 'required|max:5000',
-            'image_1' => 'required|mimes:jpg,jpeg,png|max:4096',
-            'image_2' => 'required|mimes:jpg,jpeg,png|max:4096',
-            'image_3' => 'required|mimes:jpg,jpeg,png|max:4096',
+            'image_1' => 'mimes:jpg,jpeg,png|max:4096',
+            'image_2' => 'mimes:jpg,jpeg,png|max:4096',
+            'image_3' => 'mimes:jpg,jpeg,png|max:4096',
         ]);
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all());
