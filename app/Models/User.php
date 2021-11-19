@@ -26,6 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
         'image',
     ];
@@ -59,4 +60,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function WishListUser()
+    {
+        return $this->hasMany(WishList::class,'user_id','id');
+    }
+
+
+
 }

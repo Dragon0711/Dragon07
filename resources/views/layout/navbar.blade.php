@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<form method="post" id="logout-form" action="{{route('user.logout')}}" style="display: none">
+    @csrf
+</form>
 <head>
     <title>OneTech</title>
     <meta charset="utf-8">
@@ -17,6 +21,9 @@
 
     {{--For Tostar--}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+
+    {{-- FOR Sweet Alert   --}}
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
 </head>
 
@@ -48,20 +55,33 @@
                                             <li><a href="#">Japanese</a></li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-                                        <ul>
-                                            <li><a href="#">EUR Euro</a></li>
-                                            <li><a href="#">GBP British Pound</a></li>
-                                            <li><a href="#">JPY Japanese Yen</a></li>
-                                        </ul>
-                                    </li>
                                 </ul>
                             </div>
                             <div class="top_bar_user">
                                 <div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div>
-                                <div><a href="{{ route('register') }}">Register</a></div>
-                                <div><a href="{{ route('login') }}">Sign in</a></div>
+                                @guest
+                                <div><a href="{{ route('register') }}">Register/Login</a></div>
+{{--                                <div><a href="{{ route('login') }}">Sign in</a></div>--}}
+                                @else
+                                    <div class="top_bar_menu">
+                                        <ul class="standard_dropdown top_bar_dropdown">
+                                            <li>
+                                                <a href="{{ route('user.profile') }}">Profile<i class="fas fa-chevron-down"></i></a>
+                                                <ul>
+                                                    <li><a href="#">WishList</a></li>
+                                                    <li><a href="#">CheckOut</a></li>
+                                                    <li><a href="#">Other</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                @endguest
+
+
+                                @auth
+                                <div><a id="logout-link" href="#">Log Out</a></div>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -125,7 +145,7 @@
                             <div class="cart">
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                     <div class="cart_icon">
-                                        <img src="images/cart.png" alt="">
+                                        <img src="{{ asset('frontend/images/cart.png')}}" alt="">
                                         <div class="cart_count"><span>10</span></div>
                                     </div>
                                     <div class="cart_content">
@@ -265,6 +285,12 @@
 {{--For Tostar--}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+
+
+{{--  FOR Sweet Alert --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script>
     @if(Session::has('message'))
     var type = "{{Session::get('alert-type','info')}}"
@@ -286,6 +312,14 @@
     }
     @endif
 </script>
+
+<script>
+    $('#logout-link').click(function (e){
+        e.preventDefault()
+        $('#logout-form').submit()
+    })
+</script>
+
 </body>
 
 </html>

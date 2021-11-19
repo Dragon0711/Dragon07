@@ -1,178 +1,104 @@
-{{--<x-guest-layout>--}}
-{{--    <x-jet-authentication-card>--}}
-{{--        <x-slot name="logo">--}}
-{{--            <x-jet-authentication-card-logo />--}}
-{{--        </x-slot>--}}
 
-{{--        <x-jet-validation-errors class="mb-4" />--}}
+@extends('layout.navbar')
 
-{{--        @if (session('status'))--}}
-{{--            <div class="mb-4 font-medium text-sm text-green-600">--}}
-{{--                {{ session('status') }}--}}
-{{--            </div>--}}
-{{--        @endif--}}
-{{--        <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">--}}
-{{--            @csrf--}}
-
-{{--            <div>--}}
-{{--                <x-jet-label for="email" value="{{ __('Email') }}" />--}}
-{{--                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />--}}
-{{--            </div>--}}
-
-{{--            <div class="mt-4">--}}
-{{--                <x-jet-label for="password" value="{{ __('Password') }}" />--}}
-{{--                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />--}}
-{{--            </div>--}}
-
-{{--            <div class="block mt-4">--}}
-{{--                <label for="remember_me" class="flex items-center">--}}
-{{--                    <x-jet-checkbox id="remember_me" name="remember" />--}}
-{{--                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>--}}
-{{--                </label>--}}
-{{--            </div>--}}
-
-{{--            <div class="flex items-center justify-end mt-4">--}}
-{{--                @if (Route::has('password.request'))--}}
-{{--                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">--}}
-{{--                        {{ __('Forgot your password?') }}--}}
-{{--                    </a>--}}
-{{--                @endif--}}
-
-{{--                <x-jet-button class="ml-4">--}}
-{{--                    {{ __('Log in') }}--}}
-{{--                </x-jet-button>--}}
-{{--            </div>--}}
-{{--        </form>--}}
-{{--    </x-jet-authentication-card>--}}
-{{--</x-guest-layout>--}}
+@section('navbar')
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{{ asset('userbackend/panel/assets/images/favicon.png') }}" >
-    <!--Page title-->
-    <title>Admin easy Learning</title>
-    <!--bootstrap-->
-    <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/css/bootstrap.min.css') }}">
-    <!--font awesome-->
-    <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/css/all.min.css') }}">
-    <!-- metis menu -->
-    <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/plugins/metismenu-3.0.4/assets/css/metisMenu.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/plugins/metismenu-3.0.4/assets/css/mm-vertical-hover.css') }}">
-    <!-- chart -->
+<div class="contact_form">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 offset-lg-1" style="border: 1px solid grey; padding: 20px; border-radius: 25px;">
+                <div class="contact_form_container">
+                    <div class="contact_form_title text-center"><h2> Sign In</h2></div>
 
-    <!-- <link rel="stylesheet" href="assets/plugins/chartjs-bar-chart/chart.css"> -->
-    <!--Custom CSS-->
-    <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/css/style.css') }}">
-</head>
-<body id="page-top">
-<!-- preloader -->
-<div class="preloader">
-    <img src="{{ asset('userbackend/panel/assets/images/preloader.gif') }}" alt="">
+                    <form action="{{ route('login') }}" id="contact_form" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email or Phone</label>
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  aria-describedby="emailHelp"  required="">
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input type="password" class="form-control @error('password') is-invalid @enderror"  aria-describedby="emailHelp" name="password" required="">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                            @enderror
+
+                        </div>
+
+
+                        <div class="contact_form_button">
+                            <button type="submit" class="btn btn-info">Login</button>
+                        </div>
+                    </form>
+                    <br>
+                    <a href="{{ route('password.request') }}">I forgot my password</a>   <br> <br>
+
+                    <button type="submit" class="btn btn-primary btn-block"><i class="fab fa-facebook-square"></i> Login with Facebook </button>
+
+                    <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger btn-block"><i class="fab fa-google"></i> Login with Google </a>
+
+                </div>
+            </div>
+
+
+            <div class="col-lg-5 offset-lg-1" style="border: 1px solid grey; padding: 20px; border-radius: 25px;">
+                <div class="contact_form_container">
+                    <div class="contact_form_title text-center"><h3>Sign Up</h3> </div>
+
+                    <form action="{{ route('register') }}" id="contact_form" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Full Name</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter Your Full Name " name="name" required="">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Phone</label>
+                            <input type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  aria-describedby="emailHelp" placeholder="Enter Your Phone " required="">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"  aria-describedby="emailHelp" placeholder="Enter Your Email " required="">
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Password</label>
+                            <input type="password" class="form-control"  aria-describedby="emailHelp" placeholder="Enter Your Password " name="password" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Confirm Password</label>
+                            <input type="password" class="form-control"  aria-describedby="emailHelp" placeholder="Re-Type Password " name="password_confirmation" required="">
+                        </div>
+
+                        <div class="contact_form_button">
+                            <button type="submit" class="btn btn-info">Sign Up</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="panel"></div>
 </div>
 
+@endsection
 
-<!-- wrapper -->
-<div class="wrapper without_header_sidebar">
-    <!-- contnet wrapper -->
-    <div class="content_wrapper">
-        <!-- page content -->
-        <div class="login_page center_container">
-            <div class="center_content">
-                <div class="logo">
-                    <img src="{{asset('userbackend/panel/assets/images/logo.png')}}" alt="" class="img-fluid">
-                </div>
-                <x-jet-validation-errors class="mb-4" />
-
-                @if (session('status'))
-                            <div class="mb-4 font-medium text-sm text-green-600">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                <form method="POST" action="{{ isset($guard) ? url($guard.'/login') : route('login') }}">
-                    @csrf
-
-                    <div class="form-group icon_parent">
-                        <x-jet-label for="email" value="{{ __('Email') }}" />
-                        <x-jet-input id="email" class="form-control" type="email" name="email" :value="old('email')" required autofocus />
-
-                        <span class="icon_soon_bottom_right"><i class="fas fa-envelope"></i></span>
-                    </div>
-
-
-                    <div class="form-group icon_parent">
-                        <x-jet-label for="password" value="{{ __('Password') }}" />
-                        <x-jet-input id="password" class="form-control" type="password" name="password" required autocomplete="current-password" />
-
-                        <span class="icon_soon_bottom_right"><i class="fas fa-unlock"></i></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="chech_container">Remember me
-                            <input type="checkbox" name="remember" id="remember" >
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <a class="registration" href="{{ Route('register') }} ">Create new account</a><br>
-                        @if(Route::has('password.request'))
-                        <a href="{{ route('password.request') }} " class="text-white">I forgot my password</a>
-
-                        @endif
-                        <button type="submit" class="btn btn-blue">{{ __('login') }}</button>
-                    </div>
-                </form>
-
-                <div class="footer">
-                    <p>Copyright &copy; 2021 <a href="#">Dev-Desha</a>. All rights reserved.</p>
-                </div>
-
-            </div>
-        </div>
-    </div><!--/ content wrapper -->
-</div><!--/ wrapper -->
-
-
-
-<!-- jquery -->
-<script src="{{ asset('userbackend/panel/assets/js/jquery.min.js') }}"></script>
-<!-- popper Min Js -->
-<script src="{{ asset('userbackend/panel/assets/js/popper.min.js') }}"></script>
-<!-- Bootstrap Min Js -->
-<script src="{{ asset('userbackend/panel/assets/js/bootstrap.min.js') }}')}}"></script>
-<!-- Fontawesome-->
-<script src="{{ asset('userbackend/panel/assets/js/all.min.js') }}')}}"></script>
-<!-- metis menu -->
-<script src="{{ asset('userbackend/panel/assets/plugins/metismenu-3.0.4/assets/js/metismenu.js') }}"></script>
-<script src="{{ asset('userbackend/panel/assets/plugins/metismenu-3.0.4/assets/js/mm-vertical-hover.js') }}"></script>
-<!-- nice scroll bar -->
-<script src="{{ asset('userbackend/panel/assets/plugins/scrollbar/jquery.nicescroll.min.js') }}"></script>
-<script src="{{ asset('userbackend/panel/assets/plugins/scrollbar/scroll.active.js') }}"></script>
-<!-- counter -->
-<script src="{{ asset('userbackend/panel/assets/plugins/counter/js/counter.js') }}"></script>
-<!-- chart -->
-<script src="{{ asset('userbackend/panel/assets/plugins/chartjs-bar-chart/Chart.min.js') }}"></script>
-<script src="{{ asset('userbackend/panel/assets/plugins/chartjs-bar-chart/chart.js') }}"></script>
-<!-- pie chart -->
-<script src="{{ asset('userbackend/panel/assets/plugins/pie_chart/chart.loader.js') }}"></script>
-<script src="{{ asset('userbackend/panel/assets/plugins/pie_chart/pie.active.js') }}"></script>
-
-
-<!-- Main js -->
-<script src="{{ asset('userbackend/panel/assets/js/main.js') }}"></script>
-
-
-
-
-
-
-</body>
-</html>

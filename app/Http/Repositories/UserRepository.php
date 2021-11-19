@@ -24,7 +24,13 @@ class UserRepository implements UserInterface {
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+
+        $notificat = array(
+            'message' => 'successfully logout',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('login')->with($notificat);
+//        return view('auth.login',['guard' => 'user']);
     }  //end Method
 
     public function profile()
@@ -76,7 +82,7 @@ class UserRepository implements UserInterface {
     {
         $validation = $request->validate([
             'name' => 'required',
-            'image' => 'nullable|mimes:jpg,png,gif|image|max:5000',
+            'image' => 'mimes:jpg,png,gif|image|max:5000',
         ]);
 
         $data = $this->userModel::find(Auth::user()->id);

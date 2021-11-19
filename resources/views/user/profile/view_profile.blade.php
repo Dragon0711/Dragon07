@@ -1,20 +1,32 @@
-@extends('user.user_master')
-@section('user')
 
-    <div class="card" style="width: 18rem;">
-{{--        <img src="{{ (!empty($user->image))? url('upload/user_images/'--}}
-{{--            .$user->image):url('upload/no_image.jpg') }}" class="card-img-top" alt="...">--}}
+@extends('layout.navbar')
 
-           @if(!empty($user->image) )
-                <img src="{{ asset("upload/user_images/".$user->image)  }}">
-           @else
-               <img src="{{ asset("upload/".'no_image.jpg') }}">
-           @endif
-        <div class="card-body">
-            <h5 class="card-title">Name: {{ $user->name }}</h5>
-            <p class="card-text"> Email: {{ $user->email }}</p>
-            <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>
+@section('navbar')
+
+    <div class="container">
+        <div class="row">
+    <div class="col-4">
+        <div class="card">
+                <div class="card">
+            <img src="{{ asset('userbackend/panel/assets/images/desha.png') }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%; border-radius: 90px">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
+
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"> <a href="{{ route('change_password') }}">Change Password</a>  </li>
+                <li class="list-group-item"> <a href="{{ route('profile.edit') }}">Edit your Profile</a>  </li>
+
+            </ul>
+
+            <div class="card-body">
+                <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>
+            </div>
         </div>
+
+    </div>
+    </div>
+ </div>
     </div>
 
 

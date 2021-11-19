@@ -24,6 +24,11 @@ class Product extends Model
         return $this->belongsTo(subCategory::class,'subcategory_id','id');
     }
 
+    public function WishListProduct()
+    {
+        return $this->belongsTo(WishList::class,'user_id','id');
+    }
+
 
 
    /* public function getDiscountAttribute()

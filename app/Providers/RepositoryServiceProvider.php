@@ -57,6 +57,16 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\Web\EndUserInterface',
             'App\Http\Repositories\Web\EndUserRepository',
         );
+
+        $this->app->bind(
+            'App\Http\Interfaces\WishlistInterface',
+            'App\Http\Repositories\WishlistRepository',
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\CartInterface',
+            'App\Http\Repositories\CartRepository',
+        );
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BrandsController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\MainAdminController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\EndUserController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,14 +101,16 @@ Route::get('admin/delete/products/{id}',[ProductController::class,'DeleteProduct
 Route::get('admin/product/active/{id}',[ProductController::class,'Active']);
 Route::get('admin/product/disable/{id}',[ProductController::class,'Disable']);
 
-  /**** User Route Section *****/
+
+
+/**** User Route Section *****/
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
 
     return view('user.index');
 })->name('dashboard');
 
-    Route::get('user/logout',[UserController::class,'logout'])->name('user.logout');
+    Route::POST('user/logout',[UserController::class,'logout'])->name('user.logout');
     Route::get('user/profile',[UserController::class,'profile'])->name('user.profile');
     Route::get('user/change-password',[UserController::class,'changePassword'])->name('change_password');
     Route::POST('user/update-password',[UserController::class,'updatePassword'])->name('update.password');
@@ -117,6 +121,15 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 /**  ------FRONTEND SECTION------ **/
 Route::POST('add/newslater',[NewsLaterController::class,'subscriber']);
+
+
+
+// ADD TO WISHLIST
+Route::get('add/wishlist/{id}',[WishlistController::class,'addWishList']);
+
+//ADD TO CART
+Route::get('add/cart/{id}',[CartController::class,'addCart']);
+Route::get('check/cart/',[CartController::class,'checkCart']);
 
 
 

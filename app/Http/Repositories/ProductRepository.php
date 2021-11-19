@@ -103,6 +103,7 @@ class ProductRepository implements ProductInterface {
         $products['hot_new']  = $request->hot_new;
         $products['best_rate']  = $request->best_rate;
         $products['trend']  = $request->trend;
+        $products['buyone_getone']  = $request->buyone_getone;
         $products['status']  = 1;
 
         $image_1  = $request->image_1;
@@ -230,6 +231,7 @@ class ProductRepository implements ProductInterface {
         'hot_new'  => $request->hot_new,
         'best_rate'  => $request->best_rate,
         'trend'  => $request->trend,
+        'buyone_getone'  => $request->buyone_getone,
         'status'  => 1,
         ]);
 

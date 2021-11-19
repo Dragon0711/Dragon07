@@ -1,7 +1,6 @@
-@extends('user.user_master')
-@section('user')
+@extends('layout.navbar')
 
-
+@section('navbar')
 
      <div style="padding: 25px">
        <form class="row g-3"  method="POST" action="{{ route("profile.update") }}" enctype="multipart/form-data">
@@ -25,12 +24,6 @@
            <label for="formFile" class="form-label">Choose New Photo</label>
            <input class="form-control" type="file" name="image" id="formFile">
        </div>
-
-
-{{--           <div class="card" style="width: 18rem;"> Your Old Photo--}}
-{{--           <img src="{{ (!empty($data->image))? url('upload/user_images/'--}}
-{{--            .$data->image):url('upload/no_image.jpg') }}" class="card-img-top" alt="...">--}}
-{{--           </div>--}}
 
        <div class="col-md-3">
            <label for="formFile" class="form-label">Your Old Photo</label>

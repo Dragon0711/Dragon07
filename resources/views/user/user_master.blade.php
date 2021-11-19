@@ -257,7 +257,7 @@
             <li><a data-toggle="dropdown" href="#"><i class="far fa-user"></i></a>
                 <div class="user_item dropdown-menu dropdown-menu-right">
                     <div class="admin">
-                        <a href="#" class="user_link"><img src="{{ asset('userbackend/panel/assets/images/admin.jpg') }}" alt=""></a>
+                        <a href="#" class="user_link"><img src="{{ asset('userbackend/panel/assets/images/desha.png') }}" alt=""></a>
                     </div>
                     <ul>
 
@@ -280,7 +280,7 @@
         <nav class="sidebar-nav">
             <ul class="metismenu" id="menu1">
                 <li class="single-nav-wrapper">
-                    <a href="index.html" class="menu-item">
+                    <a href="{{ url('/')}} " class="menu-item">
                         <span class="left-icon"><i class="fas fa-home"></i></span>
                         <span class="menu-text">home</span>
                     </a>

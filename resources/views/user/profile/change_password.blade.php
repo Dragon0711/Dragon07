@@ -1,46 +1,86 @@
-@extends('user.user_master')
-@section('user')
 
+@extends('layout.navbar')
 
-
-    <div style="padding: 30px">
-        <h3>Change Password</h3>
-        <div class="row" style="padding: 30px">
-        <form class="row g-3"  method="POST" action="{{ route("update.password") }}">
-            @csrf
-
+@section('navbar')
+    <div class="container">
+        <div class="row">
             <div class="col-md-8">
-                    <label for="current_password" class="form-label">Current Password</label>
-                    <input type="password" class="form-control" name="oldpassword"  id="current_password">
-                    @error('oldpassword')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
+                <div class="card">
+                    <div class="card-header">{{ __('Change Your Password') }}</div>
+
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('update.password') }}" aria-label="{{ __('Reset Password') }}">
+                            @csrf
+
+
+                            <div class="form-group row">
+                                <label for="oldpass" class="col-md-4 col-form-label text-md-right">{{ __('Old Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="oldpass" type="password" class="form-control{{ $errors->has('oldpass') ? ' is-invalid' : '' }}" name="oldpass" value="{{ $oldpass ?? old('oldpass') }}" required autofocus>
+
+                                    @if ($errors->has('oldpass'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('oldpass') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Reset Password') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
 
-            <div class="col-md-8">
-                    <label for="password" class="form-label">New Password</label>
-                    <input type="password" class="form-control" name="password"  id="password">
-                    @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{ asset('userbackend/panel/assets/images/desha.png') }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
+
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> <a href="{{ route('change_password') }}">Change Password</a>  </li>
+
+                    </ul>
+
+                    <div class="card-body">
+                        <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>
+
+                    </div>
+
+                </div>
+
             </div>
-
-            <div class="col-md-8">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input type="password" class="form-control" name="password_confirmation"  id="password_confirmation">
-                    @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-            </div>
-
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </form>
-       </div>
-    </div>
-
-
-
-
+        </div>
 @endsection
+
