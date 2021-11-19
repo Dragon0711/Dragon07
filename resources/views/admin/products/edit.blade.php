@@ -29,7 +29,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label class="form-control-label">Firstname: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="name" value="{{$product->name}}" placeholder="Product name">
+                            <input class="form-control" type="text" name="name" value="{{ old('name',$product->name) }}" placeholder="Product name">
                             @error('name')
                             {{ $message }}
                             @enderror
@@ -38,7 +38,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label class="form-control-label">Product Code: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="code" value="{{$product->code}}" placeholder="Product Code">
+                            <input class="form-control" type="text" name="code" value="{{ old('code',$product->code) }}" placeholder="Product Code">
                             @error('code')
                             {{ $message }}
                             @enderror
@@ -47,7 +47,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label class="form-control-label">discount_price: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="discount_price" value="{{$product->discount_price}}" placeholder="Enter discount_price">
+                            <input class="form-control" type="text" name="discount_price" value="{{ old('discount_price',$product->discount_price) }}" placeholder="Enter discount_price">
                             @error('discount_price')
                             {{ $message }}
                             @enderror
@@ -56,7 +56,7 @@
                     <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">quantity: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="quantity" value="{{$product->quantity}}" placeholder="Enter quantity">
+                            <input class="form-control" type="text" name="quantity" value="{{ old('quantity',$product->quantity) }}" placeholder="Enter quantity">
                             @error('quantity')
                             {{ $message }}
                             @enderror
@@ -66,7 +66,7 @@
                     <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">Size: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="size" id="size" value="{{$product->size}}" data-role="tagsinput" >
+                            <input class="form-control" type="text" name="size" id="size" value="{{ old('size',$product->size) }}" data-role="tagsinput" >
                             @error('size')
                             {{ $message }}
                             @enderror
@@ -76,7 +76,7 @@
                     <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">Color: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="color" id="color"  value="{{$product->color}}" data-role="tagsinput">
+                            <input class="form-control" type="text" name="color" id="color"  value="{{ old('color',$product->color) }}" data-role="tagsinput">
                             @error('color')
                             {{ $message }}
                             @enderror
@@ -85,7 +85,7 @@
                     <div class="col-lg-4">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">Price: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="price" value="{{$product->price}}" placeholder="Enter Price">
+                            <input class="form-control" type="text" name="price" value="{{ old('price',$product->price) }}" placeholder="Enter Price">
                             @error('price')
                             {{ $message }}
                             @enderror
@@ -181,7 +181,7 @@
                     <div class="col-lg-12">
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">Description: <span class="tx-danger">*</span></label>
-                            <textarea class="form-control"  name="desc" id="summernote"> {{$product->desc}} </textarea>
+                            <textarea class="form-control"  name="desc" id="summernote"> {{ old('desc',$product->desc) }} </textarea>
                             @error('desc')
                             {{ $message }}
                             @enderror
@@ -195,49 +195,49 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="main_slider" value="1">
+                            <input type="checkbox" name="main_slider" value="1" {{ old('main_slider', $product->main_slider) == 1 ? 'checked' : '' }}>
                             <span>Main slider</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="mid_slider" value="1">
+                            <input type="checkbox" name="mid_slider" value="1" {{ old('mid_slider', $product->mid_slider) == 1 ? 'checked' : '' }}>
                             <span>Mid slider</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="hot_deal" value="1">
+                            <input type="checkbox" name="hot_deal" value="1" {{ old('hot_deal', $product->hot_deal) == 1 ? 'checked' : '' }}>
                             <span>Hot Deal</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="hot_new" value="1">
+                            <input type="checkbox" name="hot_new" value="1" {{ old('hot_new', $product->hot_new) == 1 ? 'checked' : '' }}>
                             <span>Hot New</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="best_rate" value="1">
+                            <input type="checkbox" name="best_rate" value="1" {{ old('best_rate', $product->best_rate) == 1 ? 'checked' : '' }}>
                             <span>Best Rate</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="trend" value="1">
+                            <input type="checkbox" name="trend" value="1" {{ old('trend', $product->trend) == 1 ? 'checked' : '' }}>
                             <span>Trend Product</span>
                         </label>
                     </div><!-- col-4 -->
 
                     <div class="col-lg-4">
                         <label class="ckbox">
-                            <input type="checkbox" name="buyone_getone" value="1">
+                            <input type="checkbox" name="buyone_getone" value="1" {{ old('buyone_getone', $product->buyone_getone) == 1 ? 'checked' : '' }}>
                             <span>buyone_getone</span>
                         </label>
                     </div><!-- col-4 -->
