@@ -34,6 +34,8 @@ class CartRepository implements CartInterface
             $data['price'] = $product->price;
             $data['weight'] =1;
             $data['options']['image'] = $product->image_1;
+            $data['options']['color'] = $product->color;
+            $data['options']['size'] = $product->size;
             cart::add($data);
             return response::json(['success' => 'Product added to your cart successfully']);
         }else{
@@ -43,6 +45,8 @@ class CartRepository implements CartInterface
             $data['price'] = $product->discount_price;
             $data['weight'] =1;
             $data['options']['image'] = $product->image_1;
+            $data['options']['color'] = $product->color;
+            $data['options']['size'] = $product->size;
             cart::add($data);
             return response::json(['success' => 'Product added to your cart successfully']);
         }

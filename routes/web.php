@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\EndUserController;
+use App\Http\Controllers\Web\ProductController as FrontProductController ;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -120,6 +121,7 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 
 /**  ------FRONTEND SECTION------ **/
+
 Route::POST('add/newslater',[NewsLaterController::class,'subscriber']);
 
 
@@ -131,5 +133,8 @@ Route::get('add/wishlist/{id}',[WishlistController::class,'addWishList']);
 Route::get('add/cart/{id}',[CartController::class,'addCart']);
 Route::get('check/cart/',[CartController::class,'checkCart']);
 
+
+// PRODUCT DETAILS
+Route::get('product/details/{product_name}/{id}',[FrontProductController::class,'viewProduct']);
 
 

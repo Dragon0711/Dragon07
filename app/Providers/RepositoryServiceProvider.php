@@ -53,10 +53,6 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Repositories\NewsLaterRepository',
         );
 
-        $this->app->bind(
-            'App\Http\Interfaces\Web\EndUserInterface',
-            'App\Http\Repositories\Web\EndUserRepository',
-        );
 
         $this->app->bind(
             'App\Http\Interfaces\WishlistInterface',
@@ -66,6 +62,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Http\Interfaces\CartInterface',
             'App\Http\Repositories\CartRepository',
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Web\EndUserInterface',
+            'App\Http\Repositories\Web\EndUserRepository',
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\Web\ProductInterface',
+            'App\Http\Repositories\Web\ProductRepository',
         );
     }
 

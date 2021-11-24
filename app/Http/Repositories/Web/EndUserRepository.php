@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class EndUserRepository implements EndUserInterface
@@ -94,6 +95,7 @@ class EndUserRepository implements EndUserInterface
 
 //        return view('layout.index',['slider' => $slider]);
     }
+
 
 
 }

@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
 
+
     {{--For Tostar--}}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
 
@@ -130,17 +131,24 @@
                         </div>
                     </div>
 
+
                     <!-- Wishlist -->
                     <div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
                         <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                             <div class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                @guest
+
+                                @else
+                                    @php
+                                        $wishlist = DB::table('whishlists')->where('user_id',Auth::id())->get();
+                                    @endphp
                                 <div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png')}}" alt=""></div>
                                 <div class="wishlist_content">
                                     <div class="wishlist_text"><a href="#">Wishlist</a></div>
-                                    <div class="wishlist_count">115</div>
+                                    <div class="wishlist_count">{{ count($wishlist) }}</div>
                                 </div>
                             </div>
-
+                        @endguest
                             <!-- Cart -->
                             <div class="cart">
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
@@ -251,7 +259,7 @@
 
                     <div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
                         <div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib/ backEnd DV-Moustafa</a>
                             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                         </div>
                         <div class="logos ml-sm-auto">
@@ -276,11 +284,12 @@
 <script src="{{ asset('frontend/plugins/greensock/TimelineMax.min.js')}}"></script>
 <script src="{{ asset('frontend/plugins/scrollmagic/ScrollMagic.min.js')}}"></script>
 <script src="{{ asset('frontend/plugins/greensock/animation.gsap.min.js')}}"></script>
-<script src="{{ asset('frontend/plugins/greensock/ScrollToPlugin.min.jsplugins/greensock/ScrollToPlugin.min.js')}}"></script>
+<script src="{{ asset('frontend/plugins/greensock/ScrollToPlugin.min.js')}}"></script>
 <script src="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.js')}}"></script>
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js')}}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js')}}"></script>
 <script src="{{ asset('frontend/js/custom.js')}}"></script>
+<script src="{{ asset('frontend/js/product_custom.js') }}"></script>
 
 {{--For Tostar--}}
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
