@@ -1,9 +1,11 @@
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_responsive.css') }}">
+
+
 @extends('layout.navbar')
 
-@section('navbar')
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/product_responsive.css') }}">
 
+@section('navbar')
 
 
     <!-- Single Product -->
@@ -34,35 +36,51 @@
                         <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
                         <div class="product_text"><p>{{str_limit($product->desc , $limit = 700)  }}</p></div>
                         <div class="order_info d-flex flex-row">
-                            <form action="#">
-                                <div class="clearfix" style="z-index: 1000;">
-
+                            <form action="{{ url("product/add/cart/$product->id") }}" method="post">
+                                @csrf
+                                    <div class="col-lg-4">
                                     <!-- Product Quantity -->
-                                    <div class="product_quantity clearfix">
-                                        <span>Quantity: </span>
-                                        <input id="quantity_input" type="text" pattern="[0-9]*" value="1">
-                                        <div class="quantity_buttons">
-                                            <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
-                                            <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+                                        <div class="form-group">
+                                            <div class="product_quantity clearfix">
+                                                <span>Quantity: </span>
+                                                <input id="quantity_input" type="text" pattern="[0-9]*" value="1" name="qty">
+                                                <div class="quantity_buttons">
+                                                    <div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
+                                                    <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <!-- Product Color -->
-                                    <ul class="product_color">
-                                        <li>
-                                            <span>Color: </span>
-                                            <div class="color_mark_container"><div id="selected_color" class="color_mark" style="background-color: rgb(0, 0, 0);"></div></div>
-                                            <div class="color_dropdown_button"><i class="fas fa-chevron-down"></i></div>
+                                                <style>
+                                                    .form-control {
+                                                        width: 110px !important;
+                                                    }
+                                                </style>
+                                                <div class="row pt-2" style="width: 400px">
+                                                    <div class="col-lg-3 mr-5">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect"><h5>Color</h5></label>
+                                                        <select class="form-control input-group-lg color_list" id="exampleFormControlSelect" name="color" >
+                                                            @foreach($color as $value)
+                                                            <option value="{{ $value }}">{{ $value }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    </div>
 
-                                            <ul class="color_list">
-                                                <li><div class="color_mark" style="background: #999999;"></div></li>
-                                                <li><div class="color_mark" style="background: #b19c83;"></div></li>
-                                                <li><div class="color_mark" style="background: #000000;"></div></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlSelect"><h5>Size</h5></label>
+                                                            <select class="form-control input-group-lg" id="exampleFormControlSelect" name="size">
+                                                                @foreach($size as $value)
+                                                                <option value="{{ $value }}">{{ $value }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                            </div>
 
-                                </div>
                                 @if($product->discount_price == null)
                                     <div class="product_price">{{$product->price}}$</div>
                                 @else
@@ -70,7 +88,7 @@
                                 @endif
 
                                 <div class="button_container">
-                                    <button type="button" class="button cart_button">Add to Cart</button>
+                                    <button type="submit" class="button cart_button">Add to Cart</button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
 

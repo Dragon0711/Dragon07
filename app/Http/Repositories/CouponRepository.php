@@ -4,6 +4,8 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\CouponInterface;
 use App\Models\Coupon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -25,6 +27,7 @@ class CouponRepository implements CouponInterface {
         $data =  $this->couponModel::all();
         return view('admin.coupons.coupons',compact('data'));
     } // End Method
+
 
     public function AddCoupon($request)
     {
@@ -87,6 +90,7 @@ class CouponRepository implements CouponInterface {
         );
         return redirect()->back()->with($notificat);
     } // End Method
+
 
 
 }

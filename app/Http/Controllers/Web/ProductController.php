@@ -20,5 +20,28 @@ class ProductController extends Controller
         return $this->productInterface->viewProduct($request);
     }
 
+    public function addProduct(Request $request)
+    {
+        return $this->productInterface->addProduct($request);
+    }
 
+    public function deleteCart($rowId)
+    {
+        return $this->productInterface->deleteCart($rowId);
+    }
+
+    public function updateQytCart(Request $request)
+    {
+        return $this->productInterface->updateQytCart($request);
+    }
+
+    public function showCatsProducts(Request $request)
+    {
+        return $this->productInterface->showCatsProducts($request);
+    }
+
+    public function showSubCatsProducts(Request $request)
+    {
+        return $this->productInterface->showSubCatsProducts($request);
+    }
 }

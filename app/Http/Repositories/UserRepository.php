@@ -35,10 +35,17 @@ class UserRepository implements UserInterface {
 
     public function profile()
     {
-        $id = auth::user()->id;
-        $user = $this->userModel::find($id);
+        //check if still login or session finished . if try go to profile nd session finished will give error
+        if (Auth::user()){
+            $id = auth::user()->id;
+
+        $user = $this->userModel::findOrFail($id);
 
         return view('user.profile.view_profile',compact('user'));
+        }
+        else{
+            return redirect('login');
+        }
     }  //end Method
 
     public function profileEdit()

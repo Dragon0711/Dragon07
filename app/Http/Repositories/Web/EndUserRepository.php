@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Cart;
 
 class EndUserRepository implements EndUserInterface
 {
@@ -94,7 +96,39 @@ class EndUserRepository implements EndUserInterface
             'productsMen','mensFashoin', 'buyGet'));
 
 //        return view('layout.index',['slider' => $slider]);
-    }
+    }//EMD METHOD
+
+    public function applyCoupon($request)
+    {
+
+        $coupon = $request->coupon;
+
+        $checkCou  = DB::table('coupons')->where('coupon',$coupon)->first();
+
+        if ($checkCou){
+            Session::put('coupon',[
+                'name' => $checkCou->coupon,
+                'discount' => $checkCou->discount,
+                'balance' => Cart::subtotal()-$checkCou->discount,
+            ]);
+            $notificat = array(
+                'message' => 'Coupon Apply Successfully',
+                'alert-type' => 'success',
+            );
+            return redirect()->back()->with($notificat);
+
+        }else{
+
+            $notificat = array(
+                'message' => 'No\'t valid Coupon try another',
+                'alert-type' => 'error',
+            );
+            return redirect()->back()->with($notificat);
+        }
+
+    }//END METHOD
+
+
 
 
 

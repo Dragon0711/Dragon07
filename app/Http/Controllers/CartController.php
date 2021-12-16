@@ -23,4 +23,9 @@ class CartController extends Controller
     {
         return $this->CartInterface->checkCart();
     }
+
+    public function checkOut()
+    {
+        return $this->CartInterface->checkOut();
+    }
 }

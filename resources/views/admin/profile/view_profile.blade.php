@@ -6,7 +6,7 @@
         {{--            .$data->image):url('upload/no_image.jpg') }}" class="card-img-top" alt="...">--}}
 
         @if(!empty($data->image) )
-            <img src="{{ asset("upload/admin_images/".$data->image)  }}">
+            <img src="{{ asset("upload/admin_images/".$data->image)  }}" style="height: 250px">
         @else
             <img src="{{ asset("upload/".'no_image.jpg') }}">
         @endif

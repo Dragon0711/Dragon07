@@ -29,7 +29,7 @@ $cats = $c->all();
                         <ul class="cat_menu">
                         @foreach( $cats as $cat)
                             <li class="hassubs">
-                                <a href="#">{{$cat->name}}<i class="fas fa-chevron-right"></i></a>
+                                <a href="{{ url('show/cats/products/'.$cat->id) }}">{{$cat->name}}<i class="fas fa-chevron-right"></i></a>
                                 <ul>
                                     @php
                                     /*$subCats = \Illuminate\Support\Facades\DB::table('subcategories')->where('category_id',$cat->id)->get();*/
@@ -37,7 +37,7 @@ $cats = $c->all();
                                      $subCats = \App\Models\SubCategory::where('category_id',$cat->id)->get();
                                     @endphp
                                     @foreach($subCats as $subCat)
-                                    <li><a href="#">{{ $subCat->name }}<i class="fas fa-chevron-right"></i></a></li>
+                                    <li><a href="{{url('show/subcats/products/'.$subCat->id)}}">{{ $subCat->name }}<i class="fas fa-chevron-right"></i></a></li>
                                     @endforeach
                                 </ul>
                             </li>

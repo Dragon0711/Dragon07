@@ -122,6 +122,21 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                <span class="menu-item-label">Orders</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('showNewOrder') }}" class="nav-link">All Orders</a></li>
+            <li class="nav-item"><a href="{{ route('acceptPayment') }}" class="nav-link">Accept Payment</a></li>
+            <li class="nav-item"><a href="{{ route('ordersCanceled') }}" class="nav-link">Orders Cancel</a></li>
+            <li class="nav-item"><a href="{{ route('progressDelivery') }}" class="nav-link">Process Delivery</a></li>
+            <li class="nav-item"><a href="{{ route('successDelivery') }}" class="nav-link">Success Delivery</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-navigate-outline tx-24"></i>
                 <span class="menu-item-label">Maps</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>

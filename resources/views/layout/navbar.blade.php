@@ -43,8 +43,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col d-flex flex-row">
-                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png')}}" alt=""></div>+38 068 005 3570</div>
-                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png')}}" alt=""></div>+79998068033</div>
+                        <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:fastsales@gmail.com">darsssh8@gmail.com</a></div>
                         <div class="top_bar_content ml-auto">
                             <div class="top_bar_menu">
                                 <ul class="standard_dropdown top_bar_dropdown">
@@ -61,17 +61,16 @@
                             <div class="top_bar_user">
                                 <div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div>
                                 @guest
-                                <div><a href="{{ route('register') }}">Register/Login</a></div>
-{{--                                <div><a href="{{ route('login') }}">Sign in</a></div>--}}
+{{--                                <div><a href="{{ route('register') }}">Register/Login</a></div>--}}
+                                <div><a href="{{ route('login') }}">Login</a></div>
                                 @else
                                     <div class="top_bar_menu">
                                         <ul class="standard_dropdown top_bar_dropdown">
                                             <li>
                                                 <a href="{{ route('user.profile') }}">Profile<i class="fas fa-chevron-down"></i></a>
                                                 <ul>
-                                                    <li><a href="#">WishList</a></li>
-                                                    <li><a href="#">CheckOut</a></li>
-                                                    <li><a href="#">Other</a></li>
+                                                    <li><a href="{{route('wishlist')}}">WishList</a></li>
+                                                    <li><a href="{{route('checkout')}}">CheckOut</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
@@ -144,7 +143,7 @@
                                     @endphp
                                 <div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png')}}" alt=""></div>
                                 <div class="wishlist_content">
-                                    <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                                    <div class="wishlist_text"><a href="{{route('wishlist')}}">Wishlist</a></div>
                                     <div class="wishlist_count">{{ count($wishlist) }}</div>
                                 </div>
                             </div>
@@ -154,11 +153,11 @@
                                 <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                                     <div class="cart_icon">
                                         <img src="{{ asset('frontend/images/cart.png')}}" alt="">
-                                        <div class="cart_count"><span>10</span></div>
+                                        <div class="cart_count"><span>{{ Cart::count() }}</span></div>
                                     </div>
                                     <div class="cart_content">
-                                        <div class="cart_text"><a href="#">Cart</a></div>
-                                        <div class="cart_price">$85</div>
+                                        <div class="cart_text"><a href="{{ route("check.cart") }}">Cart</a></div>
+                                        <div class="cart_price">${{Cart::subtotal()}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +168,10 @@
         </div>
 
 
+
+
     <!-- Characteristics -->
+
 
 @yield('navbar')
 

@@ -6,6 +6,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\CartInterface;
 
 use Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
@@ -51,12 +52,33 @@ class CartRepository implements CartInterface
             return response::json(['success' => 'Product added to your cart successfully']);
         }
 
-    }
+    } //End Method
 
 
     public function checkCart()
     {
         $content = Cart::content();
-        return response()->json($content);
+
+
+        return view('layout.show_cart',compact('content'));
+    } // End Method
+
+
+    public function checkOut()
+    {
+      if (Auth::check()){
+
+          $content = Cart::content();
+          return view('layout.checkout',compact('content'));
+
+      }else{
+          $notificat = array(
+              'message' => 'First should login ',
+              'alert-type' => 'warning'
+          );
+          return redirect('login')->with($notificat);
+      }
     }
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Http\Interfaces\Web\EndUserInterface;
+use Illuminate\Http\Request;
 
 class EndUserController extends Controller
 {
@@ -21,6 +22,10 @@ class EndUserController extends Controller
         return $this->EndUserInterface->index();
     }
 
+    public function applyCoupon(Request $request)
+    {
+        return $this->EndUserInterface->applyCoupon($request);
+    }
 
 
 

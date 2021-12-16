@@ -61,6 +61,34 @@ class WishlistRepository implements WishlistInterface
 
             }
 
+    } // END METHOD
 
+    public function viewWishList()
+    {
+        $userId = Auth::id();
+
+        $wishproduct = DB::table('whishlists')
+            ->join('products','whishlists.product_id','products.id')
+            ->select('products.*','whishlists.user_id')
+            ->where('whishlists.user_id',$userId)
+            ->get();
+
+        return view('layout.wishlist',compact('wishproduct'));
+    } // END METHOD
+
+
+    public function deleteWishList($request)
+    {
+
+        DB::table('whishlists')
+            ->join('products','whishlists.product_id','products.id')
+            ->where('whishlists.product_id',$request->id)
+            ->delete();
+
+        $notificat = array(
+            'message' => 'deleted successfully',
+            'alert-type' => 'error',
+        );
+        return redirect()->back()->with($notificat);
     }
 }

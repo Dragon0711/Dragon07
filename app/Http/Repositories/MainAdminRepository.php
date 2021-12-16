@@ -14,21 +14,21 @@ class MainAdminRepository implements MainAdminInterface {
 
     private $AdminModel;
 
-    public function __construct(Admin $Admin){
+    public function __construct(Admin $admin){
 
-        $this->AdminModel = $Admin;
+        $this->AdminModel = $admin;
     }  //end Method
 
 
     public function profile()
     {
-        $data = Admin::find(1);
+        $data = Admin::first();
         return view('admin.profile.view_profile',compact('data'));
     }  //end Method
 
     public function profileEdit()
     {
-        $oldData = Admin::find(1);
+        $oldData = Admin::first();
 
         return view('admin.profile.edit_profile',compact('oldData'));
     } //end Method
@@ -41,7 +41,7 @@ class MainAdminRepository implements MainAdminInterface {
             'image' => 'nullable|image|mimes:jpg,png,gif|max:5000',
         ]);
 
-        $data = Admin::find(1);
+        $data = Admin::first();
 
         if($request->file('image') && $data->image) {
             unlink(public_path('upload/admin_images/' . $data->image));
@@ -77,7 +77,7 @@ class MainAdminRepository implements MainAdminInterface {
             'password_confirmation' => 'required',
         ]);
 
-        $admin = Admin::find(1);
+        $admin = Admin::first();
         if (!Hash::check($request->oldpassword,$admin->password)){
             $notificat = array(
                 'message' => 'password not match',

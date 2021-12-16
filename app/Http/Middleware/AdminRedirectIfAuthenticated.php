@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminRedirectIfAuthenticated
 {
+
+
     /**
      * Handle an incoming request.
      *

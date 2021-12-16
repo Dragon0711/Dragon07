@@ -11,5 +11,7 @@ public function addCart($request);
 
 public function checkCart();
 
+public function checkOut();
+
 
 }

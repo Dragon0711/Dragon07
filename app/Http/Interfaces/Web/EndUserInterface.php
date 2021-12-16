@@ -8,6 +8,8 @@ Interface EndUserInterface {
 
 public function index();
 
+public function applyCoupon($request);
+
 
 
 

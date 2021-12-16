@@ -167,9 +167,7 @@
                                     <div class="product_name"><div><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $row->name }}</a></div></div>
                                     <div class="product_extras">
                                         <div class="product_color">
-                                            <input type="radio" checked name="product_color" style="background:#b19c83">
-                                            <input type="radio" name="product_color" style="background:#000000">
-                                            <input type="radio" name="product_color" style="background:#999999">
+
                                         </div>
                                         <button class="product_cart_button addcart" data-id="{{ $row->id }}">Add to Cart</button>
                                     </div>
@@ -218,12 +216,10 @@
                                         <div class="product_price discount">{{ $rowT->discount_price.'$' }}<span>{{ $rowT->price.'$' }}</span></div>
                                     @endif
 
-                                    <div class="product_name"><div><a href="product.html">{{ $rowT->name }}</a></div></div>
+                                    <div class="product_name"><div><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $rowT->name }}</a></div></div>
                                     <div class="product_extras">
                                         <div class="product_color">
-                                            <input type="radio" checked name="product_color" style="background:#b19c83">
-                                            <input type="radio" name="product_color" style="background:#000000">
-                                            <input type="radio" name="product_color" style="background:#999999">
+
                                         </div>
                                         <button class="product_cart_button addcart" data-id="{{ $rowT->id }}">Add to Cart</button>
                                     </div>
@@ -243,7 +239,6 @@
                                             {{intval($discount)}}%
                                         </li>
                                     @endif
-
 
                                 </ul>
                             </div>
@@ -271,12 +266,10 @@
                                         <div class="product_price discount">{{ $row->discount_price }}$<span>{{$row->price}}$</span></div>
                                         @endif
 
-                                    <div class="product_name"><div><a href="product.html">{{ $row->name }}</a></div></div>
+                                    <div class="product_name"><div><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $row->name }}</a></div></div>
                                     <div class="product_extras">
                                         <div class="product_color">
-                                            <input type="radio" checked name="product_color" style="background:#b19c83">
-                                            <input type="radio" name="product_color" style="background:#000000">
-                                            <input type="radio" name="product_color" style="background:#999999">
+
                                         </div>
                                         <button class="product_cart_button addcart" data-id="{{ $row->id }}">Add to Cart</button>
                                     </div>
@@ -425,12 +418,10 @@
                                                         <div class="product_price discount">{{ $row->discount_price }}$<span>{{$row->price}}$</span></div>
                                                     @endif
 
-                                                    <div class="product_name"><div><a href="product.html">{{ $row->name }}</a></div></div>
+                                                    <div class="product_name"><div><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $row->name }}</a></div></div>
                                                     <div class="product_extras">
                                                         <div class="product_color">
-                                                            <input type="radio" checked name="product_color" style="background:#b19c83">
-                                                            <input type="radio" name="product_color" style="background:#000000">
-                                                            <input type="radio" name="product_color" style="background:#999999">
+
                                                         </div>
                                                         <button class="product_cart_button addcart" data-id="{{ $row->id }}">Add to Cart</button>
                                                     </div>
@@ -505,12 +496,9 @@
                                                     <div class="product_price discount">{{ $row->discount_price }}$<span>{{$row->price}}$</span></div>
                                                 @endif
 
-                                                <div class="product_name"><div><a href="product.html">{{ $row->name }}</a></div></div>
+                                                <div class="product_name"><div><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $row->name }}</a></div></div>
                                                 <div class="product_extras">
                                                     <div class="product_color">
-                                                        <input type="radio" checked name="product_color" style="background:#b19c83">
-                                                        <input type="radio" name="product_color" style="background:#000000">
-                                                        <input type="radio" name="product_color" style="background:#999999">
                                                     </div>
                                                     <button class="product_cart_button addcart" data-id="{{ $row->id }}">Add to Cart</button>
                                                 </div>
@@ -1333,7 +1321,7 @@
                                 <div class="trends_content">
                                     <div class="trends_category"><a href="#">{{ $row->brand_name }}</a></div>
                                     <div class="trends_info clearfix">
-                                        <div class="trends_name"><a href="product.html">{{ $row->name }}</a></div>
+                                        <div class="trends_name"><a href="{{ url("product/details/".$row->name.'/'.$row->id) }}">{{ $row->name }}</a></div>
                                         @if($row->discount_price == null)
                                             <div class="product_price discount">{{$row->price}}$</div>
                                         @else

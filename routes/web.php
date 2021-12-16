@@ -7,11 +7,15 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\MainAdminController;
 use App\Http\Controllers\NewsLaterController;
+
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\EndUserController;
+use App\Http\Controllers\web\PaymentController;
 use App\Http\Controllers\Web\ProductController as FrontProductController ;
+use App\Http\Controllers\web\UserOrdersController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,15 +30,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-/* EndUser Group*/
-//Route::get('/', function () {
-//
-//
-//});
+
 Route::get('/',[EndUserController::class,'index']);
 
 
@@ -42,7 +43,8 @@ Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function (){
     Route::get('/login',[AdminController::class,'loginForm']);
     Route::POST('/login',[AdminController::class,'store'])->name('admin.login');
 });
-Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
+
+Route::middleware(['auth:admin,sanctum', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.index');
 })->name('admin.dashboard');
 
@@ -77,6 +79,8 @@ Route::get('admin/edit/coupon/{id}',[CouponController::class,'EditCoupon']);
 Route::POST('admin/update/coupon/{id}',[CouponController::class,'UpdateCoupon']);
 Route::get('admin/delete/coupon/{id}',[CouponController::class,'deleteCoupon']);
 
+
+
 /** NewsLater Section */
 Route::get('admin/newslater',[NewsLaterController::class,'AllnewsLater'])->name('all.NewsLaters');
 Route::get('admin/delete/newslater/{id}',[NewsLaterController::class,'deletenewsLater']);
@@ -99,15 +103,33 @@ Route::get('admin/edit/products/{id}',[ProductController::class,'EditProduct']);
 Route::post('admin/update/products/{id}',[ProductController::class,'UpdateProduct'])->name('update.product');
 Route::get('admin/delete/products/{id}',[ProductController::class,'DeleteProduct']);
 
+
 Route::get('admin/product/active/{id}',[ProductController::class,'Active']);
 Route::get('admin/product/disable/{id}',[ProductController::class,'Disable']);
+
+
+/** ORDERS SECTION ***/
+
+Route::get('admin/roder/new',[OrdersController::class,'showOrder'])->name('showNewOrder');
+Route::get('admin/view/order/{id}',[OrdersController::class,'viewOrder']);
+Route::get('admin/accept/order/payment/{id}',[OrdersController::class,'acceptPaymentOrder']);
+Route::get('admin/cancel/order/{id}',[OrdersController::class,'cancelOrder']);
+Route::get('admin/progress/delivery/{id}',[OrdersController::class,'adminProgressDelivery']);
+Route::get('admin/done/delivery/{id}',[OrdersController::class,'adminDoneDelivery']);
+
+
+/** for view side menu **/
+Route::get('orders/accept/payment',[OrdersController::class,'paymentAccept'])->name('acceptPayment');
+Route::get('orders/canceled',[OrdersController::class,'ordersCanceled'])->name('ordersCanceled');
+Route::get('progress/delivery',[OrdersController::class,'progressDelivery'])->name('progressDelivery');
+Route::get('success/delivery',[OrdersController::class,'successDelivery'])->name('successDelivery');
+
 
 
 
 /**** User Route Section *****/
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-
     return view('user.index');
 })->name('dashboard');
 
@@ -128,13 +150,36 @@ Route::POST('add/newslater',[NewsLaterController::class,'subscriber']);
 
 // ADD TO WISHLIST
 Route::get('add/wishlist/{id}',[WishlistController::class,'addWishList']);
+Route::get('wishlist/',[WishlistController::class,'viewWishList'])->name('wishlist');
+Route::get('wishlist/delete/{id}',[WishlistController::class,'deleteWishList']);
 
 //ADD TO CART
 Route::get('add/cart/{id}',[CartController::class,'addCart']);
-Route::get('check/cart/',[CartController::class,'checkCart']);
+Route::get('check/cart/',[CartController::class,'checkCart'])->name("check.cart");
+Route::get('checkout/',[CartController::class,'checkOut'])->name("checkout");
+
+
+
 
 
 // PRODUCT DETAILS
 Route::get('product/details/{product_name}/{id}',[FrontProductController::class,'viewProduct']);
+Route::post('product/add/cart/{id}',[FrontProductController::class,'addProduct']);
+Route::get('delete/from/cart/{rowId}',[FrontProductController::class,'deleteCart']);
+Route::POST('update/qyt/cart/',[FrontProductController::class,'updateQytCart']);
+
+Route::get('show/cats/products/{id}',[FrontProductController::class,'showCatsProducts']);
+Route::get('show/subcats/products/{id}',[FrontProductController::class,'showSubCatsProducts']);
 
 
+
+//User Coupon
+Route::POST('apply/coupon',[EndUserController::class,'applyCoupon'])->name('apply.coupon');
+
+//PAYMENT
+Route::get('payment/page',[PaymentController::class,'PaymentInf'])->name('Payment.Page');
+Route::POST('payment/process',[PaymentController::class,'PaymentProcess'])->name('payment.process');
+Route::POST('payment/charge',[PaymentController::class,'PaymentCharge'])->name('visa.charge');
+
+/**  User Orders    **/
+Route::get('user/cancel/order/{id}',[OrdersController::class,'userCancelOrder']);

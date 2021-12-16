@@ -9,5 +9,9 @@ interface WishlistInterface
 
 public function addWishList($request);
 
+public function viewWishList();
+
+public function deleteWishList($request);
+
 
 }

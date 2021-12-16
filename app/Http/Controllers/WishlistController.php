@@ -18,4 +18,14 @@ class WishlistController extends Controller
     {
        return  $this->wishListInterFace->addWishList($request);
     }
+
+    public function viewWishList()
+    {
+        return $this->wishListInterFace->viewWishList();
+    }
+
+    public function deleteWishList(Request $request)
+    {
+        return $this->wishListInterFace->deleteWishList($request);
+    }
 }
