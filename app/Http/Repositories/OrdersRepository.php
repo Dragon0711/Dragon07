@@ -145,4 +145,15 @@ class OrdersRepository implements OrdersInterface{
         return redirect()->back()->with($notificat);
     }
 
+    public function userTrackOrder($request)
+    {
+        $statusNumber = $request->id;
+//        dd($statusNumber);
+
+       $status = DB::table('orders')->where('status_code',$statusNumber)->first();
+//        dd($status);
+
+        return view('layout.status_delivery',compact('status'));
+    }
+
 }

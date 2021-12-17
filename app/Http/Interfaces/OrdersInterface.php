@@ -32,4 +32,6 @@ public function successDelivery();
 /** for user **/
     public function userCancelOrder($request);
 
+    public function userTrackOrder($request);
+
 }

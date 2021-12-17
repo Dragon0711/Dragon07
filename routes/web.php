@@ -183,3 +183,4 @@ Route::POST('payment/charge',[PaymentController::class,'PaymentCharge'])->name('
 
 /**  User Orders    **/
 Route::get('user/cancel/order/{id}',[OrdersController::class,'userCancelOrder']);
+Route::get('user/track/order/{id}',[OrdersController::class,'userTrackOrder']);

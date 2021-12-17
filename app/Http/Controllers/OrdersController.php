@@ -76,5 +76,10 @@ class OrdersController extends Controller
         return $this->ordersInterface->userCancelOrder($request);
     }
 
+    public function userTrackOrder(Request $request){
+
+        return $this->ordersInterface->userTrackOrder($request);
+    }
+
 
 }

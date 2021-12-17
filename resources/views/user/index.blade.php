@@ -7,7 +7,7 @@
         $orders = DB::table('order_details')
                          ->join('products','order_details.product_id','products.id')
                          ->join('orders','order_details.order_id','=','orders.id')
-                         ->select('order_details.*','products.name','products.code','products.image_1')
+                         ->select('order_details.*','products.name','products.code','products.image_1','orders.status_code')
                          ->where('orders.user_id',Auth::id())
                          ->where('orders.status','!=', 4)
                          ->get();
@@ -39,7 +39,9 @@
                         <td>{{$order->size}}</td>
                         <td>{{$order->total_price}} $</td>
                         <td>
-                            <a href="{{ URL("user/cancel/order/$order->order_id") }}" class="btn btn-sm btn-danger edit-btn" style="float: right">Cancel Order</a>
+                            <a href="{{ URL("user/cancel/order/$order->order_id") }}" class="btn btn-sm btn-danger edit-btn" style="float: right">Cancel Order</a><br><br>
+                            <a href="{{ URL("user/track/order/$order->status_code") }}" class="btn btn-sm btn-primary edit-btn" style="float: right">track</a>
+
                         </td>
                     </tr>
                     @endforeach

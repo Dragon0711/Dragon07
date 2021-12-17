@@ -76,12 +76,13 @@ class PaymentRepository implements PaymentInterface
         $charge = \Stripe\Charge::create([
             'amount' => $total*100,
             'currency' => 'usd',
-            'description' => 'dehsa magazin charge',
+            'description' => 'dehsa magazin ',
             'source' => $token,
             'metadata' => ['order_id' => uniqid()],
         ]);
 //        dd($charge);
-        //Insert into Orders Table
+
+        /**  Insert into Orders Table **/
         $data = array();
         $data['user_id'] = Auth::id();
         $data['payment_id'] = $charge->payment_method;
@@ -89,6 +90,7 @@ class PaymentRepository implements PaymentInterface
         $data['balance_transaction'] = $charge->balance_transaction;
         $data['strip_order_id'] = $charge->metadata->order_id;
         $data['total'] = $request->total;
+        $data['status_code'] = mt_rand(100000,999999);
         $data['payment_type'] = $request->payment_type;
 
         if (Session::has('coupon')){
