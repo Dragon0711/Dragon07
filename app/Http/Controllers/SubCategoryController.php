@@ -11,7 +11,7 @@ class SubCategoryController extends Controller
 
     public function __construct(SubCategoryInterface $subCatInterface){
 
-        $this->middleware('auth:admin');
+//        $this->middleware('auth:admin');
 
         $this->subCatInterface = $subCatInterface;
 

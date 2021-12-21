@@ -10,6 +10,7 @@
             @endforeach
         </div>
     @endif
+
 <form method="POST" action="{{ url("admin/update/brands/$value->id") }}" enctype="multipart/form-data">
     @csrf
     <div class="container" >

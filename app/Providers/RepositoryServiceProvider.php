@@ -88,6 +88,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Interfaces\Web\UserOrdersInterface',
             'App\Http\Repositories\Web\UserOrdersRepository',
         );
+
+        $this->app->bind(
+            'App\Http\Interfaces\ReportOrdersInterface',
+            'App\Http\Repositories\ReportOrdersRepository',
+        );
     }
 
     /**

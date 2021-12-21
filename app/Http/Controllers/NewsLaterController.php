@@ -16,7 +16,7 @@ class NewsLaterController extends Controller
     public function __construct(NewsLaterInterface $newslaterInterface){
 
         $this->newslaterInterface = $newslaterInterface;
-        $this->middleware('auth:admin');
+//        $this->middleware('auth:admin');
     }
 
 

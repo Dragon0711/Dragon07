@@ -15,7 +15,7 @@ class BrandsController extends Controller
     public function __construct(BrandInterface $brandInterface){
 
         $this->brandInterface = $brandInterface;
-        $this->middleware('auth:admin');
+//        $this->middleware('auth:admin');
     }
 
     public function AllBrand()

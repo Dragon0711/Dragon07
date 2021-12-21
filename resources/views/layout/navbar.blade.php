@@ -71,6 +71,7 @@
                                                 <ul>
                                                     <li><a href="{{route('wishlist')}}">WishList</a></li>
                                                     <li><a href="{{route('checkout')}}">CheckOut</a></li>
+                                                    <li><a href="{{route('dashboard')}}">Dashboard</a></li>
                                                 </ul>
                                             </li>
                                         </ul>

@@ -52,7 +52,7 @@
 
             <div class="col-lg-4">
                 <div class="card">
-                        <img src="{{ asset('userbackend/panel/assets/images/desha.png') }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%; border-radius: 90px">
+                        <img src="{{ asset('upload/user_images/'.Auth::user()->image) }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%; border-radius: 90px">
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
 

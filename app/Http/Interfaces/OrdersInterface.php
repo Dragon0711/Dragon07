@@ -3,7 +3,7 @@
 namespace App\Http\Interfaces;
 
 
-interface OrdersInterface{
+Interface OrdersInterface{
 
 public function showOrder();
 

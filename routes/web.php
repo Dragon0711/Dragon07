@@ -10,6 +10,7 @@ use App\Http\Controllers\NewsLaterController;
 
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportOrdersController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Web\EndUserController;
@@ -44,90 +45,105 @@ Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function (){
     Route::POST('/login',[AdminController::class,'store'])->name('admin.login');
 });
 
-Route::middleware(['auth:admin,sanctum', 'verified'])->get('/admin/dashboard', function () {
-    return view('admin.index');
-})->name('admin.dashboard');
-
-Route::get('admin/logout',[AdminController::class,'destroy'])->name('admin.logout');
-Route::get('admin/profile',[MainAdminController::class,'profile'])->name('admin.profile');
-Route::get('admin/profile/edit',[MainAdminController::class,'profileEdit'])->name('admin.profile.edit');
-Route::POST('admin/profile/update',[MainAdminController::class,'profileUpdate'])->name('admin.profile.update');
-Route::get('admin/change-password',[MainAdminController::class,'changePassword'])->name('admin.change-password');
-Route::POST('admin/update-password',[MainAdminController::class,'updatePassword'])->name('admin.update.password');
-
-/** Admin Category Section */
-
-Route::get('admin/categories',[CategoryController::class,'AllCat'])->name('categories');
-Route::POST('admin/add/categories',[CategoryController::class,'AddCat'])->name('add.category');
-Route::get('admin/edit/categories/{id}',[CategoryController::class,'EditCat']);
-Route::POST('admin/update/categories/{id}',[CategoryController::class,'updateCat'])->name('updateCat');
-Route::get('admin/delete/categories/{id}',[CategoryController::class,'deleteCat']);
+//Route::middleware(['auth:sanctum,admin','verified'])->get('/admin/dashboard', function () {
+//    return view('admin.index');
+//})->name('admin.dashboard');
 
 
-/** Sub-Category Section  **/
-Route::get('admin/subcat',[SubCategoryController::class,'AllSubCat'])->name('SubCat');
-Route::POST('admin/add/subcat',[SubCategoryController::class,'AddSubCat'])->name('add.SubCat');
-Route::get('admin/edit/subcat/{id}',[SubCategoryController::class,'EditSubCat']);
-Route::POST('admin/update/subcat/{id}',[SubCategoryController::class,'UpdateSubCat']);
-Route::get('admin/delete/subcat/{id}',[SubCategoryController::class,'deleteSubCat']);
+Route::group(['middleware'=>'auth:admin'],function(){
+
+    Route::get('admin/dashboard', function () {
+        return view('admin.index');
+    })->name('admin.dashboard');
+
+    Route::get('admin/logout',[AdminController::class,'destroy'])->name('admin.logout');
+    Route::get('admin/profile',[MainAdminController::class,'profile'])->name('admin.profile');
+    Route::get('admin/profile/edit',[MainAdminController::class,'profileEdit'])->name('admin.profile.edit');
+    Route::POST('admin/profile/update',[MainAdminController::class,'profileUpdate'])->name('admin.profile.update');
+    Route::get('admin/change-password',[MainAdminController::class,'changePassword'])->name('admin.change-password');
+    Route::POST('admin/update-password',[MainAdminController::class,'updatePassword'])->name('admin.update.password');
+
+    /** Admin Category Section */
+
+    Route::get('admin/categories',[CategoryController::class,'AllCat'])->name('categories');
+    Route::POST('admin/add/categories',[CategoryController::class,'AddCat'])->name('add.category');
+    Route::get('admin/edit/categories/{id}',[CategoryController::class,'EditCat']);
+    Route::POST('admin/update/categories/{id}',[CategoryController::class,'updateCat'])->name('updateCat');
+    Route::get('admin/delete/categories/{id}',[CategoryController::class,'deleteCat']);
 
 
-/** Coupon Section */
-Route::get('admin/coupon',[CouponController::class,'AllCoupon'])->name('coupon');
-Route::POST('admin/add/coupon',[CouponController::class,'AddCoupon'])->name('add.coupon');
-Route::get('admin/edit/coupon/{id}',[CouponController::class,'EditCoupon']);
-Route::POST('admin/update/coupon/{id}',[CouponController::class,'UpdateCoupon']);
-Route::get('admin/delete/coupon/{id}',[CouponController::class,'deleteCoupon']);
+    /** Sub-Category Section  **/
+    Route::get('admin/subcat',[SubCategoryController::class,'AllSubCat'])->name('SubCat');
+    Route::POST('admin/add/subcat',[SubCategoryController::class,'AddSubCat'])->name('add.SubCat');
+    Route::get('admin/edit/subcat/{id}',[SubCategoryController::class,'EditSubCat']);
+    Route::POST('admin/update/subcat/{id}',[SubCategoryController::class,'UpdateSubCat']);
+    Route::get('admin/delete/subcat/{id}',[SubCategoryController::class,'deleteSubCat']);
 
 
-
-/** NewsLater Section */
-Route::get('admin/newslater',[NewsLaterController::class,'AllnewsLater'])->name('all.NewsLaters');
-Route::get('admin/delete/newslater/{id}',[NewsLaterController::class,'deletenewsLater']);
-
-
-/**  Brands Section */
-
-Route::get('admin/brands',[BrandsController::class,'AllBrand'])->name('brands');
-Route::POST('admin/add/brands',[BrandsController::class,'addBrand'])->name('add.brand');
-Route::get('admin/edit/brands/{id}',[BrandsController::class,'editBrand']);
-Route::POST('admin/update/brands/{id}',[BrandsController::class,'updateBrand']);
-Route::get('admin/delete/brands/{id}',[BrandsController::class,'deleteBrand']);
-
-/** PRODUCT SECTION ***/
-
-Route::get('admin/all/products',[ProductController::class,'AllProducts'])->name('all.products');
-Route::get('admin/create/products',[ProductController::class,'CreateProducts'])->name('create.product');
-Route::post('admin/store/products',[ProductController::class,'StoreProducts'])->name('store.product');
-Route::get('admin/edit/products/{id}',[ProductController::class,'EditProduct']);
-Route::post('admin/update/products/{id}',[ProductController::class,'UpdateProduct'])->name('update.product');
-Route::get('admin/delete/products/{id}',[ProductController::class,'DeleteProduct']);
-
-
-Route::get('admin/product/active/{id}',[ProductController::class,'Active']);
-Route::get('admin/product/disable/{id}',[ProductController::class,'Disable']);
-
-
-/** ORDERS SECTION ***/
-
-Route::get('admin/roder/new',[OrdersController::class,'showOrder'])->name('showNewOrder');
-Route::get('admin/view/order/{id}',[OrdersController::class,'viewOrder']);
-Route::get('admin/accept/order/payment/{id}',[OrdersController::class,'acceptPaymentOrder']);
-Route::get('admin/cancel/order/{id}',[OrdersController::class,'cancelOrder']);
-Route::get('admin/progress/delivery/{id}',[OrdersController::class,'adminProgressDelivery']);
-Route::get('admin/done/delivery/{id}',[OrdersController::class,'adminDoneDelivery']);
-
-
-/** for view side menu **/
-Route::get('orders/accept/payment',[OrdersController::class,'paymentAccept'])->name('acceptPayment');
-Route::get('orders/canceled',[OrdersController::class,'ordersCanceled'])->name('ordersCanceled');
-Route::get('progress/delivery',[OrdersController::class,'progressDelivery'])->name('progressDelivery');
-Route::get('success/delivery',[OrdersController::class,'successDelivery'])->name('successDelivery');
+    /** Coupon Section */
+    Route::get('admin/coupon',[CouponController::class,'AllCoupon'])->name('coupon');
+    Route::POST('admin/add/coupon',[CouponController::class,'AddCoupon'])->name('add.coupon');
+    Route::get('admin/edit/coupon/{id}',[CouponController::class,'EditCoupon']);
+    Route::POST('admin/update/coupon/{id}',[CouponController::class,'UpdateCoupon']);
+    Route::get('admin/delete/coupon/{id}',[CouponController::class,'deleteCoupon']);
 
 
 
+    /** NewsLater Section */
+    Route::get('admin/newslater',[NewsLaterController::class,'AllnewsLater'])->name('all.NewsLaters');
+    Route::get('admin/delete/newslater/{id}',[NewsLaterController::class,'deletenewsLater']);
 
-/**** User Route Section *****/
+
+    /**  Brands Section */
+
+    Route::get('admin/brands',[BrandsController::class,'AllBrand'])->name('brands');
+    Route::POST('admin/add/brands',[BrandsController::class,'addBrand'])->name('add.brand');
+    Route::get('admin/edit/brands/{id}',[BrandsController::class,'editBrand']);
+    Route::POST('admin/update/brands/{id}',[BrandsController::class,'updateBrand']);
+    Route::get('admin/delete/brands/{id}',[BrandsController::class,'deleteBrand']);
+
+    /** PRODUCT SECTION ***/
+
+    Route::get('admin/all/products',[ProductController::class,'AllProducts'])->name('all.products');
+    Route::get('admin/create/products',[ProductController::class,'CreateProducts'])->name('create.product');
+    Route::post('admin/store/products',[ProductController::class,'StoreProducts'])->name('store.product');
+    Route::get('admin/edit/products/{id}',[ProductController::class,'EditProduct']);
+    Route::post('admin/update/products/{id}',[ProductController::class,'UpdateProduct'])->name('update.product');
+    Route::get('admin/delete/products/{id}',[ProductController::class,'DeleteProduct']);
+
+
+    Route::get('admin/product/active/{id}',[ProductController::class,'Active']);
+    Route::get('admin/product/disable/{id}',[ProductController::class,'Disable']);
+
+
+    /** ORDERS SECTION ***/
+
+    Route::get('admin/roder/new',[OrdersController::class,'showOrder'])->name('showNewOrder');
+    Route::get('admin/view/order/{id}',[OrdersController::class,'viewOrder']);
+    Route::get('admin/accept/order/payment/{id}',[OrdersController::class,'acceptPaymentOrder']);
+    Route::get('admin/cancel/order/{id}',[OrdersController::class,'cancelOrder']);
+    Route::get('admin/progress/delivery/{id}',[OrdersController::class,'adminProgressDelivery']);
+    Route::get('admin/done/delivery/{id}',[OrdersController::class,'adminDoneDelivery']);
+
+
+    /** for view side menu **/
+    Route::get('admin/orders/accept/payment',[OrdersController::class,'paymentAccept'])->name('acceptPayment');
+    Route::get('admin/orders/canceled',[OrdersController::class,'ordersCanceled'])->name('ordersCanceled');
+    Route::get('admin/progress/delivery',[OrdersController::class,'progressDelivery'])->name('progressDelivery');
+    Route::get('admin/success/delivery',[OrdersController::class,'successDelivery'])->name('successDelivery');
+
+
+
+    /*** Reports Orders  ***/
+    Route::get('admin/orders/report',[ReportOrdersController::class,'reportOrders'])->name('orders.report');
+    Route::get('admin/search/orders/month',[ReportOrdersController::class,'searchByMonth']);
+    Route::get('admin/search/orders/year',[ReportOrdersController::class,'searchByYear']);
+    Route::get('admin/search/orders/day',[ReportOrdersController::class,'searchByDay']);
+
+});
+
+
+       /************* User Route Section *******************/
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
     return view('user.index');

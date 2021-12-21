@@ -35,7 +35,7 @@
     </div>
 
     <div style="margin: 75px">
-        <h4 style="color: orangered"><strong>Status :</strong> In Road For Delivery </h4>
+        <h4 style="color: orangered "><strong>Status :</strong> In Road For Delivery </h4>
     </div>
 
 @elseif($status->status == 3)

@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'phone',
         'password',
         'image',
+        'role_id',
     ];
 
     /**
@@ -73,6 +74,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function recentViewProducts()
     {
         return $this->hasMany(RecentlyView::class,'user_id');
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class,'role_id','id');
     }
 
 

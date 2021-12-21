@@ -37,7 +37,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($ordersCanceled as $key=> $value)
+                        @forelse($ordersCanceled as $key=> $value)
                             <tr role="row" class="odd">
 {{--                                <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>--}}
                                 <td>{{ $value->id }}</td>
@@ -61,8 +61,10 @@
                                 <td>
                                     <a href="{{ URL("admin/view/order/$value->id") }}" class="btn btn-sm btn-info edit-btn">View</a>
                                 </td>
+                                @empty
+                                    <td colspan="8" class="alert-danger" style="text-align: center">No Data</td>
                             </tr>
-                        @endforeach
+                        @endforelse
                         </tbody>
                     </table>
                     <div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite"></div>
