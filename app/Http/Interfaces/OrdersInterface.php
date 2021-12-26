@@ -29,9 +29,14 @@ public function progressDelivery();
 public function successDelivery();
 
 
+public function returnedOrder();
+
+
 /** for user **/
     public function userCancelOrder($request);
 
     public function userTrackOrder($request);
+
+    public function userReturnOrder($request);
 
 }

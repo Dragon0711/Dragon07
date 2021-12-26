@@ -82,7 +82,7 @@ class PaymentRepository implements PaymentInterface
         ]);
 //        dd($charge);
 
-        /**  Insert into Orders Table **/
+        /*************  Insert into Orders Table *************/
         $data = array();
         $data['user_id'] = Auth::id();
         $data['payment_id'] = $charge->payment_method;
@@ -104,6 +104,7 @@ class PaymentRepository implements PaymentInterface
         $data['year'] = date('Y');
 
         $order_id = DB::table('orders')->insertGetId($data);
+
 
         // insert into shipping table
         $shipping = array();

@@ -23,11 +23,25 @@ class Admin extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+
+
+    public function role(){
+        return $this->belongsTo(Role::class,'role_id','id');
+    }
+
+    public function permission()
+    {
+        return $this->hasOne(Permission::class);
+    }
+
+
     protected $fillable = [
         'name',
         'email',
         'password',
-        'image'
+        'image',
+        'role_id',
+
 
     ];
 

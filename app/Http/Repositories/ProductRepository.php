@@ -81,7 +81,7 @@ class ProductRepository implements ProductInterface {
         ]);
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput($request->all());
-        };
+        }
 
         $products = new Product();
 

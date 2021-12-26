@@ -91,16 +91,25 @@
                                     <button type="submit" class="button cart_button">Add to Cart</button>
                                     <div class="product_fav"><i class="fas fa-heart"></i></div>
                                 </div>
-
                             </form>
+
                         </div>
-                    </div>
+                    </div><br>
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_inline_share_toolbox" ></div>
                 </div>
 
             </div>
         </div>
     </div>
 
+
+
+        <!-- Face Book Comment -->
+        <div class="container" style="margin-left: 85px">
+            <h5 style="color: #2e9ad0">Add Your Comment ^-^</h5>
+            <div class="fb-comments" data-href="{{Request::url()}}" data-width="" data-numposts="5"></div>
+        </div>
     <!-- Recently Viewed -->
 
     <div class="viewed">
@@ -142,10 +151,19 @@
                                 @endforeach
                         </div>
 
-                    </div>
+                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ar_AR/sdk.js#xfbml=1&version=v12.0&appId=1653350134897164&autoLogAppEvents=1" nonce="z1rm5g2q"></script>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-61c89e3deee9dfbb"></script>
+
 
 @endsection

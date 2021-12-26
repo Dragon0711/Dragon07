@@ -135,6 +135,18 @@
             <li class="nav-item"><a href="{{ route('successDelivery') }}" class="nav-link">Success Delivery</a></li>
         </ul>
 
+
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+                <span class="menu-item-label">Returned Orders</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('returned.order') }}" class="nav-link">All Orders</a></li>
+        </ul>
+
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
@@ -144,7 +156,19 @@
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('orders.report') }}" class="nav-link">Reports Search</a></li>
-            </ul>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
+                <span class="menu-item-label">Admins Roles</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="{{ route('all.admins') }}" class="nav-link">All admins</a></li>
+            <li class="nav-item"><a href="{{ route('add.admin') }}" class="nav-link">Add Admin</a></li>
+        </ul>
 
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
@@ -192,8 +216,8 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name"><span class="hidden-md-down"> Admin Desha ِ</span></span>
-                    <img src="{{ asset('adminbackend//img/img3.jpg') }}" class="wd-32 rounded-circle" alt="">
+                    <span class="logged-name"><span class="hidden-md-down"> {{ Auth::user()->name }} </span>
+                    <img src="{{ asset('upload/admin_images/'.Auth::user()->image) }}" class="wd-32 rounded-circle" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">

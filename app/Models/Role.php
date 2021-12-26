@@ -9,13 +9,17 @@ class Role extends Model
 {
     use HasFactory;
 
-    public function users(){
-        return $this->hasMany(User::class,'id','role_id');
+    public function Admins(){
+        return $this->hasMany(Admin::class,'id','role_id');
+    }
+
+    public function Permissions(){
+        return $this->hasMany(Permission::class,'id','role_id');
     }
 
     protected $fillable = [
         'name',
-        'slug',
+        'description',
     ];
     protected $hidden = ['created_at','updated_at'];
 

@@ -4,6 +4,7 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\OrdersInterface;
 use App\Models\Order;
+use App\Models\ReturnOrder;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,7 +16,7 @@ class OrdersRepository implements OrdersInterface{
     public function __construct(Order $order){
     $this->orderModel = $order;
 
-    }
+    }//END METHOD
 
 
     public function showOrder()
@@ -23,7 +24,7 @@ class OrdersRepository implements OrdersInterface{
         $orders = DB::table('orders')->where('status',0)->get();
 
         return view('admin.orders.all_orders',compact('orders'));
-    }
+    }//END METHOD
 
     public function viewOrder($request)
     {
@@ -56,7 +57,7 @@ class OrdersRepository implements OrdersInterface{
             'alert-type' => 'success'
         );
         return redirect()->route('showNewOrder')->with($notificat);
-    }
+    }//END METHOD
 
     public function cancelOrder($request)
     {
@@ -67,7 +68,7 @@ class OrdersRepository implements OrdersInterface{
             'alert-type' => 'error'
         );
         return redirect()->route('showNewOrder')->with($notificat);
-    }
+    }//END METHOD
 
     public function adminProgressDelivery($request)
     {
@@ -78,7 +79,7 @@ class OrdersRepository implements OrdersInterface{
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notificat);
-    }
+    }//END METHOD
 
     public function adminDoneDelivery($request)
     {
@@ -89,7 +90,7 @@ class OrdersRepository implements OrdersInterface{
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notificat);
-    }
+    }//END METHOD
 
 
 
@@ -100,7 +101,7 @@ class OrdersRepository implements OrdersInterface{
       $acceptPayment =  DB::table('orders')->where('status',1)->get();
 
         return view('admin.orders.orders_payment_accepted',compact('acceptPayment'));
-    }
+    }//END METHOD
 
 
     public function ordersCanceled()
@@ -108,23 +109,38 @@ class OrdersRepository implements OrdersInterface{
       $ordersCanceled =  DB::table('orders')->where('status',4)->get();
 
         return view('admin.orders.orders_canceled',compact('ordersCanceled'));
-    }
+    }//END METHOD
 
     public function progressDelivery()
     {
         $progressDelivery =  DB::table('orders')->where('status',2)->get();
 
         return view('admin.orders.progress_delivery',compact('progressDelivery'));
-    }
+    }//END METHOD
 
     public function successDelivery()
     {
         $successDelivery =  DB::table('orders')->where('status',3)->get();
 
         return view('admin.orders.success_delivery',compact('successDelivery'));
+    }//END METHOD
+
+
+
+    public function returnedOrder()
+    {
+        $orderReturned = DB::table('return_orders')
+        ->join('users','return_orders.user_id','users.id')
+            ->select('return_orders.*','users.name')
+            ->get();
+
+        return view('admin.returnOrders.all_order',compact('orderReturned'));
     }
 
-    /** for user cancel order**/
+
+
+
+    /************* for user cancel order *************/
 
     public function userCancelOrder($request)
     {
@@ -143,7 +159,7 @@ class OrdersRepository implements OrdersInterface{
             'alert-type' => 'error'
         );
         return redirect()->back()->with($notificat);
-    }
+    }//END METHOD
 
     public function userTrackOrder($request)
     {
@@ -154,6 +170,43 @@ class OrdersRepository implements OrdersInterface{
 //        dd($status);
 
         return view('layout.status_delivery',compact('status'));
+    }//END METHOD
+
+    public function userReturnOrder($request)
+    {
+        $returnOrder = DB::table('orders')->where('id',$request->id)->get();
+//        dd($returnOrder);
+
+
+        foreach($returnOrder as $value)
+        {
+            ReturnOrder::create([
+                'user_id' => $value->user_id,
+                'payment_type' => $value->payment_type,
+                'payment_id' => $value->payment_id,
+                'paying_amount' => $value->paying_amount,
+                'balance_transaction' => $value->balance_transaction,
+                'strip_order_id' => $value->strip_order_id,
+                'subtotal' => $value->subtotal,
+                'total' => $value->total,
+                'shipping' => $value->shipping,
+                'vat' => $value->vat,
+                'status' => 'returned',
+                'day' => date('d-m-y'),
+                'month' => date('F'),
+                'year' => date('Y'),
+            ]);
+        }
+
+        DB::table('orders')->where('id',$request->id)->delete();
+
+
+        $notificat = array(
+            'message' => 'Order returned',
+            'alert-type' => 'warning'
+        );
+        return redirect()->back()->with($notificat);
+
     }
 
 }

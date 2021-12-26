@@ -69,7 +69,19 @@ class OrdersController extends Controller
         return $this->ordersInterface->successDelivery();
     }
 
-    /** for user **/
+
+    public function returnedOrder()
+    {
+        return $this->ordersInterface->returnedOrder();
+    }
+
+
+
+
+
+
+
+    /******************* for user ***************/
 
     public function userCancelOrder(Request $request){
 
@@ -79,6 +91,11 @@ class OrdersController extends Controller
     public function userTrackOrder(Request $request){
 
         return $this->ordersInterface->userTrackOrder($request);
+    }
+
+    public function userReturnOrder(Request $request){
+
+        return $this->ordersInterface->userReturnOrder($request);
     }
 
 

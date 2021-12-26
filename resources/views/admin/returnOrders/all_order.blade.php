@@ -6,12 +6,12 @@
 
     <div class="sl-pagebody">
         <div class="sl-page-title">
-            <h5>Success Delivery </h5>
+            <h5>Returned Orders</h5>
         </div>
         <!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">Success Delivery </h6>
+            <h6 class="card-body-title">Returned Orders</h6>
 
 
             <div class="table-wrapper">
@@ -22,44 +22,37 @@
                             <span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-datatable1_length-qg-container">
                             <span class="select2-selection__rendered" id="select2-datatable1_length-qg-container" title="10">10</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span>
                             <span class="dropdown-wrapper" aria-hidden="true"></span></span> items/page</label></div><div id="datatable1_filter" class="dataTables_filter"><label><input type="search" class="" placeholder="Search..." aria-controls="datatable1"></label></div>
-                    <table id="datatable1" class="table display responsive nowrap dataTable no-footer dtr-inline" role="grid" aria-describedby="datatable1_info" style="width: 987px;">
+                    <table id="datatable1" class="table display responsive nowrap dataTable no-footer dtr-inline" role="grid" aria-describedby="datatable1_info" style="width: 900px;margin-left: -25px;">
                         <thead>
                         <tr>
                             <th class="wd-15p">Id</th>
+                            <th class="wd-15p">User Name</th>
                             <th class="wd-15p">Payment Type</th>
                             <th class="wd-15p">Transction Id</th>
                             <th class="wd-15p">subtotal</th>
                             <th class="wd-20p">Total</th>
                             <th class="wd-20p">Date</th>
+                            <th class="wd-20p">month</th>
+                            <th class="wd-20p">year</th>
                             <th class="wd-20p">Status</th>
-                            <th class="wd-20p">Action</th>
 
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($successDelivery as $key=> $value)
+                        @forelse($orderReturned as $value)
                             <tr role="row" class="odd">
-{{--                                <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>--}}
+                                {{--                                <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>--}}
                                 <td>{{ $value->id }}</td>
+                                <td>{{ $value->name }}</td>
                                 <td>{{ $value->payment_type }}</td>
                                 <td>{{ $value->balance_transaction }} </td>
                                 <td>{{ $value->subtotal }} $</td>
                                 <td>{{ $value->total }} $</td>
                                 <td>{{ $value->day }} </td>
+                                <td>{{ $value->month }} </td>
+                                <td>{{ $value->year }} </td>
                                 <td>
-                                    @if($value->status == 0)
-                                        <span class="badge badge-dark">pending</span>
-                                    @elseif($value->status == 1)
-                                        <span class="badge badge-success">Payment Accepted</span>
-                                    @elseif($value->status == 2)
-                                        <span class="badge badge-warning">Progress</span>
-                                    @elseif($value->status == 3)
-                                        <span class="badge badge-success">Delivered</span>
-                                    @else
-                                        <span class="badge badge-danger">Canceled</span>
-                                    @endif </td>
-                                <td>
-                                    <a href="{{ URL("admin/view/order/$value->id") }}" class="btn btn-sm btn-info edit-btn">View</a>
+                                        <span class="badge badge-danger">{{$value->status}}</span>
                                 </td>
                                 @empty
                                     <td colspan="8" class="alert-danger" style="text-align: center">No Data</td>

@@ -133,12 +133,24 @@ Route::group(['middleware'=>'auth:admin'],function(){
     Route::get('admin/success/delivery',[OrdersController::class,'successDelivery'])->name('successDelivery');
 
 
+    Route::get('admin/view/returned/orders',[OrdersController::class,'returnedOrder'])->name('returned.order');
+
+
 
     /*** Reports Orders  ***/
     Route::get('admin/orders/report',[ReportOrdersController::class,'reportOrders'])->name('orders.report');
     Route::get('admin/search/orders/month',[ReportOrdersController::class,'searchByMonth']);
     Route::get('admin/search/orders/year',[ReportOrdersController::class,'searchByYear']);
     Route::get('admin/search/orders/day',[ReportOrdersController::class,'searchByDay']);
+
+
+
+    /********** Add Admins ***********/
+
+    Route::get('admin/all/admins',[AdminController::class,'AllAdmins'])->name('all.admins');
+    Route::get('admin/add/admin',[AdminController::class,'AddAdmin'])->name('add.admin');
+    Route::POST('admin/store/admin',[AdminController::class,'StoreAdmin'])->name('admin.storeAdmin');
+    Route::get('admin/delete/admin/{id}',[AdminController::class,'DeleteAdmin']);
 
 });
 
@@ -158,7 +170,7 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 
 
 
-/**  ------FRONTEND SECTION------ **/
+/*************  ------FRONTEND SECTION------ *****************/
 
 Route::POST('add/newslater',[NewsLaterController::class,'subscriber']);
 
@@ -200,3 +212,4 @@ Route::POST('payment/charge',[PaymentController::class,'PaymentCharge'])->name('
 /**  User Orders    **/
 Route::get('user/cancel/order/{id}',[OrdersController::class,'userCancelOrder']);
 Route::get('user/track/order/{id}',[OrdersController::class,'userTrackOrder']);
+Route::get('user/return/order/{id}',[OrdersController::class,'userReturnOrder']);

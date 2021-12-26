@@ -7,7 +7,7 @@
         $orders = DB::table('order_details')
                          ->join('products','order_details.product_id','products.id')
                          ->join('orders','order_details.order_id','=','orders.id')
-                         ->select('order_details.*','products.name','products.code','products.image_1','orders.status_code')
+                         ->select('order_details.*','products.name','products.code','products.image_1','orders.status_code','orders.status')
                          ->where('orders.user_id',Auth::id())
                          ->where('orders.status','!=', 4)
                          ->get();
@@ -29,7 +29,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($orders as $order)
+                    @forelse($orders as $order)
                     <tr>
 {{--                        <th scope="row">1</th>--}}
                         <td>{{$order->order_id}}</td>
@@ -40,27 +40,31 @@
                         <td>{{$order->total_price}} $</td>
                         <td>
                             <a href="{{ URL("user/cancel/order/$order->order_id") }}" class="btn btn-sm btn-danger edit-btn" style="float: right">Cancel Order</a><br><br>
-                            <a href="{{ URL("user/track/order/$order->status_code") }}" class="btn btn-sm btn-primary edit-btn" style="float: right">track</a>
+                            <a href="{{ URL("user/track/order/$order->status_code") }}" class="btn btn-sm btn-primary edit-btn" style="float: right">track</a><br><br>
+
+                            @if($order->status == 3)
+                                <a href="{{ URL("user/return/order/$order->order_id") }}" class="btn btn-sm btn-info edit-btn" style="float: right">Return Order</a>
+                            @else
+                            @endif
 
                         </td>
+                        @empty
+                            <td colspan="8" class="alert-danger" style="text-align: center">No Data</td>
                     </tr>
-                    @endforeach
+                    @endforelse
                     </tbody>
                 </table>
             </div>
-
 
             <div class="col-lg-4">
                 <div class="card">
                         <img src="{{ asset('upload/user_images/'.Auth::user()->image) }}" class="card-img-top" style="height: 90px; width: 90px; margin-left: 34%; border-radius: 90px">
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ Auth::user()->name }}</h5>
-
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"> <a href="{{ route('change_password') }}">Change Password</a>  </li>
                             <li class="list-group-item"> <a href="{{ route('profile.edit') }}">Edit your Profile</a>  </li>
-
                         </ul>
                         <div class="card-body">
                             <a href="{{ route('user.logout') }}" class="btn btn-danger btn-sm btn-block">Logout</a>

@@ -84,14 +84,15 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Repositories\Web\PaymentRepository',
         );
 
-        $this->app->bind(
-            'App\Http\Interfaces\Web\UserOrdersInterface',
-            'App\Http\Repositories\Web\UserOrdersRepository',
-        );
 
         $this->app->bind(
             'App\Http\Interfaces\ReportOrdersInterface',
             'App\Http\Repositories\ReportOrdersRepository',
+        );
+
+        $this->app->bind(
+            'App\Http\Interfaces\AdminInterface',
+            'App\Http\Repositories\AdminRepository',
         );
     }
 

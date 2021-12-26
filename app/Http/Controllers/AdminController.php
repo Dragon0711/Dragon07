@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\AttemptToAuthenticate;
 use App\Actions\Fortify\RedirectIfTwoFactorAuthenticatable;
+use App\Http\Interfaces\AdminInterface;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -29,15 +30,19 @@ class AdminController extends Controller
      */
     protected $guard;
 
+    private $adminInterface;
+
     /**
      * Create a new controller instance.
      *
      * @param \Illuminate\Contracts\Auth\StatefulGuard $guard
      * @return void
      */
-    public function __construct(StatefulGuard $guard)
+    public function __construct(StatefulGuard $guard ,AdminInterface $adminInterface)
     {
         $this->guard = $guard;
+
+        $this->adminInterface = $adminInterface ;
     }
 
     public function loginForm(){
@@ -111,6 +116,30 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return app(LogoutResponse::class);
+    } // END METHOD
+
+
+
+    public function AllAdmins()
+    {
+        return $this->adminInterface->AllAdmins();
     }
+
+    public function AddAdmin(Request $request)
+    {
+        return $this->adminInterface->AddAdmin($request);
+    }
+
+
+    public function StoreAdmin(Request $request)
+    {
+        return $this->adminInterface->StoreAdmin($request);
+    }
+
+    public function DeleteAdmin(Request $request)
+    {
+        return $this->adminInterface->DeleteAdmin($request);
+    }
+
 }
 

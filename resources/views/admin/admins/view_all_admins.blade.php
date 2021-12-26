@@ -6,15 +6,15 @@
 
     <div class="sl-pagebody">
         <div class="sl-page-title">
-            <h5>Success Delivery </h5>
+            <h5>All Admins</h5>
         </div>
         <!-- sl-page-title -->
 
         <div class="card pd-20 pd-sm-40">
-            <h6 class="card-body-title">Success Delivery </h6>
-
+            <h6 class="card-body-title">All Admins & manger</h6>
 
             <div class="table-wrapper">
+
                 <div id="datatable1_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="datatable1_length">
                         <label><select name="datatable1_length" aria-controls="datatable1" class="select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                 <option value="10">10</option><option value="25">25</option><option value="50">50</option>
@@ -26,41 +26,58 @@
                         <thead>
                         <tr>
                             <th class="wd-15p">Id</th>
-                            <th class="wd-15p">Payment Type</th>
-                            <th class="wd-15p">Transction Id</th>
-                            <th class="wd-15p">subtotal</th>
-                            <th class="wd-20p">Total</th>
-                            <th class="wd-20p">Date</th>
-                            <th class="wd-20p">Status</th>
-                            <th class="wd-20p">Action</th>
+                            <th class="wd-15p">Name</th>
+                            <th class="wd-15p">Email</th>
+                            <th class="wd-15p">Role Id</th>
+                            <th class="wd-15p">Access</th>
+                            <th class="wd-15p">Action</th>
+
+
 
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($successDelivery as $key=> $value)
+                        @forelse($admins as $value)
                             <tr role="row" class="odd">
-{{--                                <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>--}}
                                 <td>{{ $value->id }}</td>
-                                <td>{{ $value->payment_type }}</td>
-                                <td>{{ $value->balance_transaction }} </td>
-                                <td>{{ $value->subtotal }} $</td>
-                                <td>{{ $value->total }} $</td>
-                                <td>{{ $value->day }} </td>
+                                <td>{{ $value->name }}</td>
+                                <td>{{ $value->email }} </td>
+
+                                <td>{{ $value->role_id }}</td>
                                 <td>
-                                    @if($value->status == 0)
-                                        <span class="badge badge-dark">pending</span>
-                                    @elseif($value->status == 1)
-                                        <span class="badge badge-success">Payment Accepted</span>
-                                    @elseif($value->status == 2)
-                                        <span class="badge badge-warning">Progress</span>
-                                    @elseif($value->status == 3)
-                                        <span class="badge badge-success">Delivered</span>
+                                @if($value->brands == 1)
+                                    <span class="badge badge-success">Brands</span>
+                                        @else
+                                        @endif
+                                    @if($value->categories == 1)
+                                        <span class="badge badge-success">categories</span>
                                     @else
-                                        <span class="badge badge-danger">Canceled</span>
-                                    @endif </td>
-                                <td>
-                                    <a href="{{ URL("admin/view/order/$value->id") }}" class="btn btn-sm btn-info edit-btn">View</a>
+                                    @endif
+                                    @if($value->subcategories == 1)
+                                        <span class="badge badge-success">subcategories</span>
+                                    @else
+                                    @endif
+                                    @if($value->coupons == 1)
+                                        <span class="badge badge-success">coupons</span><br>
+                                    @else
+                                    @endif
+                                    @if($value->news_laters == 1)
+                                        <span class="badge badge-success">news laters</span>
+                                    @else
+                                    @endif
+                                    @if($value->orders == 1)
+                                        <span class="badge badge-success">orders</span>
+                                    @else
+                                    @endif
+                                    @if($value->products == 1)
+                                        <span class="badge badge-success">products</span>
+                                    @else
+                                    @endif
                                 </td>
+                                <td>
+                                    <a href="{{ URL("admin/delete/admin/$value->id") }}" class="btn btn-sm btn-danger" id="delete" title="Delete"><i class="fa fa-trash"></i> </a>
+                                </td>
+
                                 @empty
                                     <td colspan="8" class="alert-danger" style="text-align: center">No Data</td>
                             </tr>
