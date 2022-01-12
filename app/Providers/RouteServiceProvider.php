@@ -20,9 +20,9 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/dashboard';
     public const ADMIN = 'admin/dashboard';
 
-    public static function redirectTo($guard){
-        return $guard.'/dashboard';
-    }
+//    public static function redirectTo($guard){
+//        return $guard.'/dashboard';
+//    }
 
     /**
      * The controller namespace for the application.
@@ -51,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+
 
         });
     }

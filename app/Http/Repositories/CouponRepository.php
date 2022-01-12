@@ -75,7 +75,7 @@ class CouponRepository implements CouponInterface {
         ]);
         $notificat = array(
             'message' => 'Coupon Updated Successfully',
-            'alert-type' => 'warning',
+            'alert-type' => 'success',
         );
         return redirect()->route('coupon')->with($notificat);
     } // End Method

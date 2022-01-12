@@ -2,79 +2,39 @@
 
 namespace App\Http\Repositories;
 
-use App\Http\Interfaces\NewsLaterInterface;
-use App\Models\Coupon;
-use App\Models\NewsLater;
+use App\Http\Interfaces\RoleInterface;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 
-class NewsLaterRepository implements NewsLaterInterface {
-
-    private $newsLaterModel;
-    /**
-     * @var Coupon
-     */
+class RoleRepository implements RoleInterface {
 
 
-    public function __construct(NewsLater $newsLater){
+    private $rolelModel;
 
-        $this->newsLaterModel = $newsLater;
+    public function __construct(Role $role , User $user){
+
+        $this->rolelModel = $role;
     }
 
-    public function AllnewsLater()
+    public function AllAdmins()
     {
-        $data =  $this->newsLaterModel::all();
-        return view('admin.newslaters.index',compact('data'));
-    } // End Method
 
-    public function deletenewsLater($request)
+        $admins = DB::table('users')
+            ->join('permission','users.role_id','permission.role_id')
+            ->select('permission.*')
+            ->get();
+
+        return view('admin.admins.view_all_admins',compact('admins'));
+    } // END METHOD
+
+
+    public function AddAdmin()
     {
-        $this->newsLaterModel::find($request->id)->delete();
-            $notificat = array(
-                'message' => 'this Email Successfully deleted',
-                'alert-type' => 'error',
-            );
-        return redirect()->back()->with($notificat);
-    }
+        $roles = DB::table('roles')->get();
 
-
-    public function deleteAll($request)
-    {
-        $ids = $request->get('ids');
-        $DeleAll = DB::delete('delete from news_laters where id in ('. implode(",",$ids).')');
-
-        $notificat = array(
-            'message' => ' Successfully delete All',
-            'alert-type' => 'error',
-        );
-        return redirect()->back()->with($notificat);
-    }
-
-
-    /** FRONTEND SECTION */
-
-    public function subscriber($request)
-    {
-        $validator = Validator::make($request->all(),[
-            'email' => 'required|email|unique:news_laters|max:100',
-        ]);
-        if ($validator->fails()){
-            $notificat = array(
-                'message' => 'this Email already Subscribe',
-                'alert-type' => 'error',
-            );
-            return redirect()->back()->withErrors($validator)->withInput($request->all())->with($notificat);
-        }
-        $this->newsLaterModel->create([
-            'email' => $request->email,
-        ]);
-        $notificat = array(
-            'message' => 'Email send Successfully',
-            'alert-type' => 'success',
-        );
-        return redirect()->back()->with($notificat);
-    } // End Method
-
+        return view('admin.admins.add_admin',compact('roles'));
+    } // END METHOD
 
 }

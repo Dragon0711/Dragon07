@@ -5,7 +5,14 @@ namespace App\Http\Interfaces;
 
 interface UserInterface{
 
-    public function logout();
+
+    public function create($request);
+
+    public function login();
+
+    public function UserStore($request);
+
+    public function logout($request);
 
     public function profile();
 

@@ -2,50 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Interfaces\CouponInterface;
+use App\Http\Interfaces\ContactInterface;
 use Illuminate\Http\Request;
 
 
-class CouponController extends Controller
+class ContactController extends Controller
 {
 
 
 
-    private $couponInterface;
+    private $contactInterface;
 
-    public function __construct(CouponInterface $couponInterface){
+    public function __construct(ContactInterface $contactInterface){
 
-        $this->couponInterface = $couponInterface;
-        $this->middleware('auth:admin');
+        $this->contactInterface = $contactInterface;
+
+
     }
 
 
-    public function AllCoupon()
+    public function contact()
     {
-        return $this->couponInterface->AllCoupon();
+        return $this->contactInterface->contact();
     }
 
-    public function AddCoupon(Request $request)
+    public function ContactForm(Request $request)
     {
-        return $this->couponInterface->AddCoupon($request);
+        return $this->contactInterface->ContactForm($request);
     }
 
-    public function EditCoupon(Request $request)
+    /*****
+    * For Admin
+     *******/
+
+    public function mailBox()
     {
-        return $this->couponInterface->EditCoupon($request);
+        return $this->contactInterface->mailBox();
     }
 
-    public function UpdateCoupon(Request $request)
+    public function viewMessage(Request $request)
     {
-        return $this->couponInterface->UpdateCoupon($request);
+        return $this->contactInterface->viewMessage($request);
     }
-
-
-    public function deleteCoupon(Request $request)
-    {
-        return $this->couponInterface->deleteCoupon($request);
-    }
-
 
 
 }

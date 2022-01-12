@@ -29,18 +29,16 @@
                                         <th>{{$message->email}}</th>
                                     </tr>
                                     <tr>
-                                        <th>Message :</th>
-                                        <th>{{$order->message}} $</th>
+                                        <th>Message:</th>
+                                        <th>{{$message->message}}</th>
                                     </tr>
 
                                 </table>
                             </div>
                         </div>
                     </div>
-
                     <!! end of div row !!>
                 </div>
-
 
             </div>
         </div>

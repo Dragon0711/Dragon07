@@ -30,9 +30,15 @@ class PaymentController extends Controller
     {
         return $this->paymentInterface->PaymentProcess($request);
     }
+
     public function PaymentCharge(Request $request)
     {
         return $this->paymentInterface->PaymentCharge($request);
+    }
+
+    public function PaymentCache(Request $request)
+    {
+        return $this->paymentInterface->PaymentCache($request);
     }
 
 

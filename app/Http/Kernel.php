@@ -31,10 +31,10 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
+//            \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
@@ -59,7 +59,10 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'admin' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
+        'admin' => \App\Http\Middleware\isAdminMiddleware::class,
+
+
+
 
 
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,

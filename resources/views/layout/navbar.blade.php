@@ -46,18 +46,20 @@
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png')}}" alt=""></div>+79998068033</div>
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:fastsales@gmail.com">darsssh8@gmail.com</a></div>
                         <div class="top_bar_content ml-auto">
+
                             <div class="top_bar_menu">
+                                @if(\Illuminate\Support\Facades\Auth::check() && Auth::user()->user_type !== 0)
                                 <ul class="standard_dropdown top_bar_dropdown">
                                     <li>
-                                        <a href="#">English<i class="fas fa-chevron-down"></i></a>
+                                        <a href="{{ route('admin.dashboard') }}">Admin Dashboard<i class="fas fa-chevron-down"></i></a>
                                         <ul>
-                                            <li><a href="#">Italian</a></li>
-                                            <li><a href="#">Spanish</a></li>
-                                            <li><a href="#">Japanese</a></li>
+                                            <li><a href="#">Any Thing</a></li>
                                         </ul>
                                     </li>
                                 </ul>
+                                @endif
                             </div>
+
                             <div class="top_bar_user">
                                 <div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div>
                                 @guest
@@ -110,9 +112,11 @@
                     <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
                         <div class="header_search">
                             <div class="header_search_content">
+
                                 <div class="header_search_form_container">
-                                    <form action="#" class="header_search_form clearfix">
-                                        <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+                                    <form action="{{ route('product.search') }}" method="post" class="header_search_form clearfix">
+                                        @csrf
+                                        <input type="search" name="search" required="required" class="header_search_input" placeholder="Search for products...">
                                         <div class="custom_dropdown">
                                             <div class="custom_dropdown_list">
                                                 <span class="custom_dropdown_placeholder clc">All Categories</span>
@@ -126,6 +130,7 @@
                                         </div>
                                         <button type="submit" class="header_search_button trans_300" value="Submit"><img src="{{ asset('frontend/images/search.png')}}" alt=""></button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>

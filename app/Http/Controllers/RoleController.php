@@ -2,44 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Interfaces\NewsLaterInterface;
+
+use App\Http\Interfaces\RoleInterface;
 use Illuminate\Http\Request;
 
 
-class NewsLaterController extends Controller
+class RoleController extends Controller
 {
 
 
 
-    private $newslaterInterface;
+    private $roleInterface;
 
-    public function __construct(NewsLaterInterface $newslaterInterface){
+    public function __construct(RoleInterface $roleInterface){
 
-        $this->newslaterInterface = $newslaterInterface;
+        $this->roleInterface = $roleInterface;
+
 //        $this->middleware('auth:admin');
     }
 
 
-    public function AllnewsLater()
+    public function AllAdmins()
     {
-        return $this->newslaterInterface->AllnewsLater();
+        return $this->roleInterface->AllAdmins();
     }
 
-    public function deletenewsLater(Request $request)
+    public function AddAdmin()
     {
-        return $this->newslaterInterface->deletenewsLater($request);
-    }
-
-    public function deleteAll(Request $request){
-
-        return $this->newslaterInterface->deleteAll($request);
-    }
-
-
-    /** FRONTEND SECTION */
-    public function subscriber(Request $request)
-    {
-        return $this->newslaterInterface->subscriber($request);
+        return $this->roleInterface->AddAdmin();
     }
 
 

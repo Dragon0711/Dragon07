@@ -27,6 +27,8 @@ class CategoryRepository implements CategoryInterface{
 
     public function AddCat($request)
     {
+
+
         $validation = Validator::make($request->all(),[
             'name' => 'required|unique:categories|max:500',
         ]);
@@ -50,6 +52,7 @@ class CategoryRepository implements CategoryInterface{
     } // End Method
 
     public function EditCat($request){
+
        $value = $this->categoryModel::where('id',$request->id)->first();
 
         return view('admin.category.edit',compact('value'));

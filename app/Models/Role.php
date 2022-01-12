@@ -2,25 +2,47 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Role extends Model
 {
-    use HasFactory;
+//    public const ADMIN_ROLE = 1;
+//    public const USER_ROLE = 2;
 
-    public function Admins(){
-        return $this->hasMany(Admin::class,'id','role_id');
-    }
+    public $table = 'roles';
 
-    public function Permissions(){
-        return $this->hasMany(Permission::class,'id','role_id');
-    }
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     protected $fillable = [
         'name',
-        'description',
+
     ];
-    protected $hidden = ['created_at','updated_at'];
+
+    public function getTitleAttribute()
+    {
+        return $this->name;
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+
+//    public function usersCount()
+//    {
+//        return DB::table("role_user")->where("role_id", $this->id)->count();
+//    }
 
 }

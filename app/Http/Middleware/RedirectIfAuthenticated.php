@@ -17,24 +17,32 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-//        if (auth('web')->check()){
-//            return  redirect(RouteServiceProvider::HOME);
+
+//        $guards = empty($guards) ? [null] : $guards;
+//
+//        foreach ($guards as $guard) {
+//            if (Auth::guard($guard)->check()) {
+//                return redirect($guard.'/dashboard');
+//            }
 //        }
 //
-//        if (auth('admin')->check())
-//        {
-//            return redirect(RouteServiceProvider::ADMIN);
-//        }
+//        return $next($request);
+//    }
 
+
+    public function handle(Request $request, Closure $next, ...$guards)
+    {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect($guard.'/dashboard');
-            }
+                if($request->user()->user_type == 1){
+                    return redirect()->intended(RouteServiceProvider::ADMIN) ;
+				}else{
+					return redirect()->intended(RouteServiceProvider::HOME);
+				}
         }
+    }
 
         return $next($request);
     }

@@ -13,8 +13,11 @@
         <div class="card pd-20 pd-sm-40">
             <h6 class="card-body-title">NewsLater Table
             </h6>
-
+       <form method="post">
+           @csrf
+           @method('DELETE')
             <div class="table-wrapper">
+                <button type="submit" formaction="{{ route('deleteAll') }}" class="btn btn-sm btn-danger" style="float: right;margin-bottom: 5px; color: whitesmoke" >Delete All</button>
                 <div id="datatable1_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="datatable1_length">
                         <label><select name="datatable1_length" aria-controls="datatable1" class="select2-hidden-accessible" tabindex="-1" aria-hidden="true">
                                 <option value="10">10</option><option value="25">25</option><option value="50">50</option>
@@ -35,7 +38,7 @@
                         <tbody>
                         @foreach($data as $key=> $value)
                             <tr role="row" class="odd">
-                                <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>
+                                <td tabindex="0" class="sorting_1"><input type="checkbox" name="ids[]" value="{{$value->id}}"> {{ $key+1 }} </td>
                                 <td>{{ $value->email }}</td>
                                 <td>{{ $value->created_at }}</td>
                                 <td>
@@ -56,7 +59,7 @@
         </div>
         <!-- card -->
         <!-- ########## END: MAIN PANEL ########## -->
-
+      </form>
 
 
 @endsection

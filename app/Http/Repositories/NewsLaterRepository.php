@@ -5,6 +5,7 @@ namespace App\Http\Repositories;
 use App\Http\Interfaces\NewsLaterInterface;
 use App\Models\Coupon;
 use App\Models\NewsLater;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -38,6 +39,17 @@ class NewsLaterRepository implements NewsLaterInterface {
     }
 
 
+    public function deleteAll($request)
+    {
+        $ids = $request->get('ids');
+        $DeleAll = DB::delete('delete from news_laters where id in ('. implode(",",$ids).')');
+
+        $notificat = array(
+            'message' => ' Successfully delete All',
+            'alert-type' => 'error',
+        );
+        return redirect()->back()->with($notificat);
+    }
 
 
     /** FRONTEND SECTION */
@@ -63,7 +75,6 @@ class NewsLaterRepository implements NewsLaterInterface {
         );
         return redirect()->back()->with($notificat);
     } // End Method
-
 
 
 }

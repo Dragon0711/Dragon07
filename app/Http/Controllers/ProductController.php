@@ -61,4 +61,12 @@ class ProductController extends Controller
     }
 
 
+    public function search(Request $request)
+    {
+        return $this->productInterface->search($request);
+    }
+
+
+
+
 }

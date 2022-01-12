@@ -16,9 +16,9 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
-    use HasProfilePhoto;
+
     use Notifiable;
-    use TwoFactorAuthenticatable;
+
 
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -34,7 +34,34 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'image',
         'role_id',
+        'social_id',
+        'social_type',
     ];
+
+
+
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
+    public function hasPermission($name)
+    {
+        if (! $this->role) {
+            return false;
+        }
+        return $this->role->permissions()->where('name',$name)->exists();
+    }
+
+
+
+
+
+
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -75,6 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(RecentlyView::class,'user_id');
     }
+
 
 
 

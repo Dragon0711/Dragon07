@@ -2,6 +2,7 @@
 
 @section('admin')
 
+
     <!-- ########## START: MAIN PANEL ########## -->
 
 <div class="sl-pagebody">

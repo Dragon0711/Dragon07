@@ -5,10 +5,10 @@ namespace App\Http\Repositories;
 
 use App\Http\Interfaces\UserInterface;
 use App\Models\User;
+use http\Env\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
-
+use Illuminate\Support\Facades\Validator;
 
 
 class UserRepository implements UserInterface {
@@ -21,17 +21,75 @@ class UserRepository implements UserInterface {
     }  //end Method
 
 
-    public function logout()
+
+    public function create($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required', 'string', 'max:255',
+            'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
+            'phone' => 'required', 'regex:/(01)[0-9]{11}/',
+            'password' => 'required', 'string', 'min:8', 'confirmed',
+        ]);
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput($request->all());
+        }
+        $user = new User();
+
+            $user['name'] = $request->name;
+            $user['email'] = $request->email;
+            $user['phone'] = $request->phon;
+            $user['role_id'] = 0;
+            $user['user_type'] = 0;
+            $user['password'] = Hash::make($request->password);
+        $user->save();
+
+        Auth::logout();
+        $notificat = array(
+            'message' => 'login to your new account',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('login')->with($notificat);
+    }
+
+
+
+
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function UserStore($request){
+
+        if(Auth::guard()->attempt(['email' =>$request->email,'password' =>$request->password]))
+        {
+
+            return redirect()->route('dashboard');
+        }
+        else{
+            return redirect()->back();
+        }
+    }
+
+
+
+
+    public function logout($request)
     {
         Auth::logout();
+//        Auth::guard()->logout();
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
 
         $notificat = array(
             'message' => 'successfully logout',
             'alert-type' => 'success'
         );
         return redirect()->route('login')->with($notificat);
-//        return view('auth.login',['guard' => 'user']);
+
     }  //end Method
+
 
     public function profile()
     {
@@ -50,10 +108,12 @@ class UserRepository implements UserInterface {
 
     public function profileEdit()
     {
-        $id = auth::user()->id;
+        if (Auth::user()){
+        $id = Auth::user()->id;
         $data = $this->userModel::find($id);
 
         return view('user.profile.edit_profile',compact('data'));
+        }
     }  //end Method
 
 

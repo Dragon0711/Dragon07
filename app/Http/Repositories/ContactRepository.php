@@ -2,95 +2,71 @@
 
 namespace App\Http\Repositories;
 
-use App\Http\Interfaces\CouponInterface;
+use App\Http\Interfaces\ContactInterface;
+use App\Models\Contact;
 use App\Models\Coupon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 
-class CouponRepository implements CouponInterface {
-
-    private $couponModel;
-    /**
-     * @var Coupon
-     */
+class ContactRepository implements ContactInterface {
 
 
-    public function __construct(Coupon $coupon){
+    private $contactModel;
 
-        $this->couponModel = $coupon;
+    public function __construct(Contact $contact){
+
+        $this->contactModel = $contact;
+
     }
 
-    public function AllCoupon()
+
+    public function contact()
     {
-        $data =  $this->couponModel::all();
-        return view('admin.coupons.coupons',compact('data'));
-    } // End Method
+        return view('layout.contact');
+    }// END METHOD
 
-
-    public function AddCoupon($request)
+    public function ContactForm($request)
     {
         $validator = Validator::make($request->all(),[
-            'coupon' => 'required|max:500',
-            'discount' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|regex:/(01)[0-9]{11}/',
+            'message' => 'required|min:7|max:1500',
         ]);
-        if ($validator->fails()){
+        if ($validator->failed()){
             return redirect()->back()->withErrors($validator)->withInput($request->all());
         }
 
-        $this->couponModel::create([
-            'coupon' => $request->coupon,
-            'discount' => $request->discount,
-        ]);
+        $contact = new Contact;
+        $contact['name'] = $request->name;
+        $contact['email'] = $request->email;
+        $contact['phone'] = $request->phone;
+        $contact['message'] = $request->message;
+        $contact->save();
+
         $notificat = array(
-            'message' => 'Coupon Added Successfully',
+            'message' => 'Your Message Send Successfully',
             'alert-type' => 'success',
         );
         return redirect()->back()->with($notificat);
-    } // End Method
+    }// END METHOD
 
 
-    public function EditCoupon($request)
+    /*****
+    * For Admin
+     ******/
+
+    public function mailBox(){
+
+        $allMessage = $this->contactModel->all();
+        return view('admin.mail_box.all_messages',compact('allMessage'));
+
+    }
+
+    public function viewMessage($request)
     {
-        $value = $this->couponModel::find($request->id);
-        return view('admin.coupons.edit',compact('value'));
-    } // End Method
+        $message = $this->contactModel::where('id',$request->id)->first();
 
-
-    public function UpdateCoupon($request)
-    {
-        $validator = Validator::make($request->all(),[
-            'coupon' => 'required|max:500',
-            'discount' => 'required',
-        ]);
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInput($request->all());
-        }
-        $data = $this->couponModel::find($request->id);
-
-        $data->update([
-            'coupon' => $request->coupon,
-            'discount' => $request->discount,
-        ]);
-        $notificat = array(
-            'message' => 'Coupon Updated Successfully',
-            'alert-type' => 'warning',
-        );
-        return redirect()->route('coupon')->with($notificat);
-    } // End Method
-
-
-    public function deleteCoupon($request)
-    {
-        $this->couponModel::find($request->id)->delete();
-        $notificat = array(
-            'message' => 'Coupon deleted Successfully',
-            'alert-type' => 'error',
-        );
-        return redirect()->back()->with($notificat);
-    } // End Method
-
-
-
+        return view('admin.mail_box.view_message',compact('message'));
+    }
 }

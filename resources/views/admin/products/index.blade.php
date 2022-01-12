@@ -50,7 +50,13 @@
                                 <td>{{ $info->price }}</td>
                                 <td>{{ $info->categoryT->name }}</td>
                                 <td> {{ $info->brandT->name ?? 'None' }} </td>
-                                <td>{{ $info->quantity }}</td>
+                                <td>
+                                @if($info->quantity < 10)
+                                        <span class="badge badge-danger">{{ $info->quantity }}</span>
+                                    @else
+                                        {{ $info->quantity }}
+                                @endif
+                                </td>
                                 <td>
                                     @if($info->status == 1)
                                  <i class="btn-sm btn-success">active</i>
@@ -118,6 +124,5 @@
                 </div>
             </div><!-- modal-dialog -->
         </div><!-- modal -->
-
 
 @endsection

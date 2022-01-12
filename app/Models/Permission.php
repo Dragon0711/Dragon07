@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,25 +10,16 @@ class Permission extends Model
 {
     use HasFactory;
 
-    public function role(){
-        return $this->belongsTo(Role::class,'role_id','id');
-    }
-
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class);
-    }
+    public $table = "permissions";
 
     protected $fillable = [
-        'brands',
-        'categories',
-        'subcategories',
-        'coupons',
-        'news_laters',
-        'orders',
-        'products',
-
-
-
+        'name'
     ];
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+
+
 }

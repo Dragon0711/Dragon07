@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{{ asset('userbackend/panel/assets/images/favicon.png') }}" >
     <!--Page title-->
-    <title>Admin easy Learning</title>
+    <title>User Dashboard</title>
     <!--bootstrap-->
     <link rel="stylesheet" href="{{ asset('userbackend/panel/assets/css/bootstrap.min.css') }}">
     <!--font awesome-->

@@ -3,18 +3,18 @@
 namespace App\Http\Interfaces;
 
 
-interface CouponInterface{
+Interface ContactInterface{
 
-public function AllCoupon();
+public function contact();
 
-public function AddCoupon($request);
+public function ContactForm($request);
 
-public function EditCoupon($request);
+/****
+* For Admin
+ *****/
+public function mailBox();
 
-public function UpdateCoupon($request);
-
-public function deleteCoupon($request);
-
+public function viewMessage($request);
 
 
 

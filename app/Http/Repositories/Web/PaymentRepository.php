@@ -6,9 +6,11 @@ namespace App\Http\Repositories\Web;
 
 
 use App\Http\Interfaces\Web\PaymentInterface;
+use App\Mail\InvoiceMail;
 use Illuminate\Support\Facades\Auth;
 use Cart;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 Use Session;
 
 class PaymentRepository implements PaymentInterface
@@ -48,8 +50,9 @@ class PaymentRepository implements PaymentInterface
         }elseif ($request->payment == 'paypal')
         {
 
-        }elseif ($request->payment == 'molie')
+        }elseif ($request->payment == 'cache')
         {
+            return view('layout.payment.cache',compact('data'));
 
         }else
         {
@@ -58,7 +61,7 @@ class PaymentRepository implements PaymentInterface
 
 
 
-    }
+    }// END METHOD
 
 
 
@@ -105,8 +108,15 @@ class PaymentRepository implements PaymentInterface
 
         $order_id = DB::table('orders')->insertGetId($data);
 
+        /*************  SEND  info Mail to USER *************/
 
-        // insert into shipping table
+        $email = Auth::user()->email;
+
+            Mail::to($email)->send(new InvoiceMail($data));
+
+
+
+        /********  insert into shipping  *******/
         $shipping = array();
         $shipping['order_id'] = $order_id;
         $shipping['ship_name'] = $request->ship_name;
@@ -146,5 +156,70 @@ class PaymentRepository implements PaymentInterface
         return Redirect('/')->with($notificat);
 
 
+    } /***** End Method ******/
+
+
+    public function PaymentCache($request)
+    {
+
+
+        /*************  Insert into Orders Table *************/
+        $data = array();
+        $data['user_id'] = Auth::id();
+        $data['total'] = $request->total;
+        $data['status_code'] = mt_rand(100000,999999);
+        $data['payment_type'] = $request->payment_type;
+
+        if (Session::has('coupon')){
+            $data['subtotal'] = Session::get('coupon')['balance'];
+        }else
+            $data['subtotal'] = Cart::subtotal();
+
+        $data['status'] = 0;
+        $data['day'] = date('d-m-y');
+        $data['month'] = date('F');
+        $data['year'] = date('Y');
+
+        $order_id = DB::table('orders')->insertGetId($data);
+
+
+        /********  insert into shipping  *******/
+        $shipping = array();
+        $shipping['order_id'] = $order_id;
+        $shipping['ship_name'] = $request->ship_name;
+        $shipping['ship_phone'] = $request->ship_phone;
+        $shipping['ship_email'] = $request->ship_email;
+        $shipping['ship_address'] = $request->ship_address;
+        $shipping['ship_city'] = $request->ship_city;
+        DB::table('shipping')->insert($shipping);
+
+
+        //insert into order_details table
+        $content = Cart::content();
+
+        $details = array();
+        foreach ($content as $row){
+            $details['order_id'] = $order_id;
+            $details['product_id']  = $row->id;
+            $details['product_name']  = $row->name;
+            $details['color']  = $row->options->color;
+            $details['size']  = $row->options->size;
+            $details['quantity']  = $row->qty;
+            $details['single_price']  = $row->price;
+            $details['total_price']  = $row->qty*$row->price;
+
+            DB::table('order_details')->insert($details);
+        }
+
+        Cart::destroy();
+
+        if (session::has('coupon')){
+            session::forget('coupon');
+        }
+        $notificat = array(
+            'message' => 'order successfully done',
+            'alert-type' => 'success'
+        );
+        return Redirect('/')->with($notificat);
     }
 }

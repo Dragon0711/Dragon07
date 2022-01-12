@@ -13,10 +13,6 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(
-            'App\Http\Interfaces\MainAdminInterface',
-            'App\Http\Repositories\MainAdminRepository'
-        );
 
         $this->app->bind(
             'App\Http\Interfaces\UserInterface',
@@ -90,9 +86,16 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Http\Repositories\ReportOrdersRepository',
         );
 
+
         $this->app->bind(
-            'App\Http\Interfaces\AdminInterface',
-            'App\Http\Repositories\AdminRepository',
+            'App\Http\Interfaces\ContactInterface',
+            'App\Http\Repositories\ContactRepository',
+        );
+
+
+        $this->app->bind(
+            'App\Http\Interfaces\RoleInterface',
+            'App\Http\Repositories\RoleRepository',
         );
     }
 

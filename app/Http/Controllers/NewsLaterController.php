@@ -30,11 +30,18 @@ class NewsLaterController extends Controller
         return $this->newslaterInterface->deletenewsLater($request);
     }
 
+    public function deleteAll(Request $request){
+
+        return $this->newslaterInterface->deleteAll($request);
+    }
+
+
     /** FRONTEND SECTION */
     public function subscriber(Request $request)
     {
         return $this->newslaterInterface->subscriber($request);
     }
+
 
 
 }

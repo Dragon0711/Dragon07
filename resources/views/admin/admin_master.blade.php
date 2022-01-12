@@ -30,6 +30,8 @@
 
     <title>Dev-Desha- Admin DashBoard</title>
 
+
+
     <!-- vendor css -->
     <link href="{{ asset('adminbackend/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('adminbackend/lib/Ionicons/css/ionicons.css') }}" rel="stylesheet">
@@ -88,9 +90,10 @@
             <li class="nav-item"><a href="{{ route('SubCat') }}" class="nav-link">Sub Category</a></li>
             <li class="nav-item"><a href="{{ route('brands') }}" class="nav-link">Brand</a></li>
         </ul>
+
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
+                <i class="fa fa-gift tx-22"></i>
                 <span class="menu-item-label">Coupons</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
@@ -111,8 +114,7 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-                <span class="menu-item-label">Products</span>
+                <i class="fa fa-database tx-22"></i>                <span class="menu-item-label">Products</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
@@ -122,7 +124,7 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                <i class="icon ion-clipboard tx-24"></i>
                 <span class="menu-item-label">Orders</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
@@ -130,15 +132,15 @@
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('showNewOrder') }}" class="nav-link">All Orders</a></li>
             <li class="nav-item"><a href="{{ route('acceptPayment') }}" class="nav-link">Accept Payment</a></li>
-            <li class="nav-item"><a href="{{ route('ordersCanceled') }}" class="nav-link">Orders Cancel</a></li>
             <li class="nav-item"><a href="{{ route('progressDelivery') }}" class="nav-link">Process Delivery</a></li>
             <li class="nav-item"><a href="{{ route('successDelivery') }}" class="nav-link">Success Delivery</a></li>
+            <li class="nav-item"><a href="{{ route('ordersCanceled') }}" class="nav-link">Orders Cancel</a></li>
         </ul>
 
 
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+                <i class="icon ion-refresh tx-20"></i>
                 <span class="menu-item-label">Returned Orders</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
@@ -149,7 +151,7 @@
 
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
+                <i class="icon ion-stats-bars tx-24"></i>
                 <span class="menu-item-label">Reports</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
@@ -160,7 +162,7 @@
 
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
+                <i class="icon ion-person-add tx-20"></i>
                 <span class="menu-item-label">Admins Roles</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
@@ -169,6 +171,13 @@
             <li class="nav-item"><a href="{{ route('all.admins') }}" class="nav-link">All admins</a></li>
             <li class="nav-item"><a href="{{ route('add.admin') }}" class="nav-link">Add Admin</a></li>
         </ul>
+
+        <a href="{{ route('admin.mailbox') }}" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>
+                <span class="menu-item-label">Mailbox</span>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
 
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
@@ -181,12 +190,7 @@
             <li class="nav-item"><a href="map-google.html" class="nav-link">Google Maps</a></li>
             <li class="nav-item"><a href="map-vector.html" class="nav-link">Vector Maps</a></li>
         </ul>
-        <a href="mailbox.html" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>
-                <span class="menu-item-label">Mailbox</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
@@ -216,19 +220,21 @@
         <nav class="nav">
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <span class="logged-name"><span class="hidden-md-down"> {{ Auth::user()->name }} </span>
-                    <img src="{{ asset('upload/admin_images/'.Auth::user()->image) }}" class="wd-32 rounded-circle" alt="">
+                    <img src="{{ asset('upload/user_images/'.Auth::user()->image) }}" class="wd-32 rounded-circle" alt="">
+                    @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href="{{ route('admin.profile') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                        <li><a href="{{ route('admin.change-password') }} "><span><i class="icon ion-ios-person-outline"></i></span>  Password Change</a></li>
+                        <li><a href="{{ route('profile.edit') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                        <li><a href="{{ route('password.request') }}"><span><i class="icon ion-ios-person-outline"></i></span>  Password Change</a></li>
 
                         <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a href="{{ route('user.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -271,20 +277,6 @@
 <script src="{{ asset('adminbackend/lib/medium-editor/medium-editor.js') }}"></script>
 <script src="{{ asset('adminbackend/lib/summernote/summernote-bs4.min.js') }}"></script>
 
-<script>
-    $(function(){
-        'use strict';
-
-        // Inline editor
-        var editor = new MediumEditor('.editable');
-
-        // Summernote editor
-        $('#summernote').summernote({
-            height: 150,
-            tooltip: false
-        })
-    });
-</script>
 
 <script src="{{ asset('adminbackend/js/starlight.js') }}"></script>
 <script src="{{ asset('adminbackend/js/ResizeSensor.js') }}"></script>
@@ -368,6 +360,31 @@
             });
     });
 </script>
+
+<script>
+    $(".select-all").click(function () {
+        $(".rolecheckbox").prop('checked', true);
+    });
+
+    $(".deselect-all").click(function () {
+        $(".rolecheckbox").prop('checked', false);
+    });
+
+    function getSelectedCheck() {
+        let role_id = $("#role_id").val();
+        $.post("{{url("/admin/get-selected-check")}}",
+            {
+                role_id: role_id,
+                _token: "{{csrf_token()}}"
+            },
+            function (data, status) {
+                $("#checkbBoxes").html(data.html)
+            });
+
+    }
+
+</script>
+
 
 </body>
 </html>

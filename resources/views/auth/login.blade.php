@@ -11,7 +11,8 @@
                 <div class="contact_form_container">
                     <div class="contact_form_title text-center"><h2> Sign In</h2></div>
 
-                    <form action="{{ route('login') }}" id="contact_form" method="post">
+                    <form action="{{ route('user.store') }}" id="contact_form" method="POST">
+                        {{ method_field('POST') }}
                         @csrf
 
                         <div class="form-group">
@@ -43,9 +44,9 @@
                     <br>
                     <a href="{{ route('password.request') }}">I forgot my password</a>   <br> <br>
 
-                    <button type="submit" class="btn btn-primary btn-block"><i class="fab fa-facebook-square"></i> Login with Facebook </button>
+                    <a href="{{ url('auth/facebook') }}" class="btn btn-primary btn-block"><i class="fab fa-facebook-square"></i> Login with Facebook </a>
 
-                    <a href="{{ url('/auth/redirect/google') }}" class="btn btn-danger btn-block"><i class="fab fa-google"></i> Login with Google </a>
+                    <a href="{{ url('auth/google') }}" class="btn btn-danger btn-block"><i class="fab fa-google"></i> Login with Google </a>
 
                 </div>
             </div>

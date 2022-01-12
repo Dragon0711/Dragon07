@@ -14,8 +14,20 @@ class UserController extends Controller
         $this->userInterfaceModel = $userInterface;
     }
 
-    public function logout(){
-        return $this->userInterfaceModel->logout();
+    public function create(Request $request){
+        return $this->userInterfaceModel->create($request);
+    }
+
+    public function login(){
+        return $this->userInterfaceModel->login();
+    }
+
+    public function UserStore(Request $request){
+        return $this->userInterfaceModel->UserStore($request);
+    }
+
+    public function logout(Request $request){
+        return $this->userInterfaceModel->logout($request);
     }
 
     public function profile(){
@@ -38,5 +50,7 @@ class UserController extends Controller
     {
         return $this->userInterfaceModel->profileUpdate($request);
     }
+
+
 }
 

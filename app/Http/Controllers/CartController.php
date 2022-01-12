@@ -11,6 +11,7 @@ class CartController extends Controller
 
     public function __construct(CartInterface $cartInterface)
     {
+
          $this->CartInterface = $cartInterface;
     }
 

@@ -293,6 +293,17 @@ class ProductRepository implements ProductInterface {
     }
 
 
+    public function search($request)
+    {
+        $item = $request->search;
+//        echo $item;
+
+        $products = DB::table('products')->where('name','LIKE',"%$item%")
+            ->paginate(20);
+
+        return view('layout.search',compact('products' ,'item'));
+    }
+
 }
 
 

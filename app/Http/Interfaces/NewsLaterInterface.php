@@ -9,6 +9,8 @@ public function AllnewsLater();
 
 public function deletenewsLater($request);
 
+public function deleteAll($request);
+
     /** FRONTEND SECTION */
 
 public function subscriber($request);

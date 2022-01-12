@@ -83,6 +83,21 @@ class OrdersRepository implements OrdersInterface{
 
     public function adminDoneDelivery($request)
     {
+        /***** 1- another way to calculate quantity use anyone u like ******/
+        $orderDetailId = DB::table('order_details')
+            ->join('products','order_details.product_id','products.id')
+            ->where('order_id',$request->id)
+            ->update(['products.quantity'=> DB::raw('products.quantity-' . 'order_details.quantity')]);
+
+
+        /***** 2- another way to calculate quantity use anyone u like ******/
+//      $orderDetailId = DB::table('order_details')->where('order_id',$request->id)->get();
+//      foreach ($orderDetailId as $row){
+//          DB::table('products')->where('id',$row->product_id)
+//              ->update(['quantity' => DB::raw('quantity-'.$row->quantity)]);
+//      }
+
+
         $this->orderModel::where('id',$request->id)->update(['status'=>3]);
 
         $notificat = array(
@@ -120,6 +135,7 @@ class OrdersRepository implements OrdersInterface{
 
     public function successDelivery()
     {
+
         $successDelivery =  DB::table('orders')->where('status',3)->get();
 
         return view('admin.orders.success_delivery',compact('successDelivery'));

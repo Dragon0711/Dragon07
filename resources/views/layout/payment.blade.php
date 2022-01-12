@@ -47,19 +47,16 @@
                                     <div class="row px-2">
                                     <li class="mr-5"><input type="radio"  name="payment" value="visa"><img src="{{asset('frontend/images/mastercard.png')}}" style="width: 80px; height:50px" > </li>
                                     <li class="mr-5"><input type="radio" name="payment" value="paypal"><img src="{{asset('frontend/images/paypal.png')}}" style="width: 80px; height:50px" > </li>
-                                    <li><input type="radio" name="payment" value="molie"><img src="{{asset('frontend/images/mollie.png')}}" style="width: 80px; height:50px" > </li>
+                                    <li><input type="radio" name="payment" value="cache"><img src="{{asset('frontend/images/delivery.png')}}" style="width: 80px; height:70px" > </li>
                                     </div>
                                 </ul>
                             </div>
-
 
                             <div class="contact_form_button text-center">
                                 <button type="submit" class="btn btn-dark">Continue</button>
                             </div>
                         </form>
-
                 </div>
-
             </div>
         </div>
         <div class="panel" style="margin-top: 100px"></div>
