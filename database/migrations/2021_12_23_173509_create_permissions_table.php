@@ -15,17 +15,8 @@ class CreatePermissionTable extends Migration
     {
         Schema::create('permission', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('role_id')->unsigned();
-            $table->boolean('brands')->nullable();
-            $table->boolean('categories')->nullable();
-            $table->boolean('subcategories')->nullable();
-            $table->boolean('coupons')->nullable();
-            $table->boolean('news_laters')->nullable();
-            $table->boolean('orders')->nullable();
-            $table->boolean('products')->nullable();
-
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-
+            $table->string("title")->nullable();
+            $table->string("name")->nullable();
             $table->timestamps();
         });
     }
