@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class isAdminMiddleware
+class CheckGuard
 {
     /**
      * Handle an incoming request.
@@ -17,11 +17,10 @@ class isAdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->user_type != 1) {
-            abort(403);
+        if (!Auth::guard('admin')->check()){
+            return redirect('admin.login');
         }
+
         return $next($request);
     }
-
-
 }

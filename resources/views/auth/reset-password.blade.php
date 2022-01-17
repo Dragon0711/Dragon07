@@ -1,41 +1,3 @@
-{{--<x-guest-layout>--}}
-{{--    <x-jet-authentication-card>--}}
-{{--        <x-slot name="logo">--}}
-{{--            <x-jet-authentication-card-logo />--}}
-{{--        </x-slot>--}}
-
-{{--        <x-jet-validation-errors class="mb-4" />--}}
-
-{{--        <form method="POST" action="{{ route('password.update') }}">--}}
-{{--            @csrf--}}
-
-{{--            <input type="hidden" name="token" value="{{ $request->route('token') }}">--}}
-
-{{--            <div class="block">--}}
-{{--                <x-jet-label for="email" value="{{ __('Email') }}" />--}}
-{{--                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />--}}
-{{--            </div>--}}
-
-{{--            <div class="mt-4">--}}
-{{--                <x-jet-label for="password" value="{{ __('Password') }}" />--}}
-{{--                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />--}}
-{{--            </div>--}}
-
-{{--            <div class="mt-4">--}}
-{{--                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />--}}
-{{--                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />--}}
-{{--            </div>--}}
-
-{{--            <div class="flex items-center justify-end mt-4">--}}
-{{--                <x-jet-button>--}}
-{{--                    {{ __('Reset Password') }}--}}
-{{--                </x-jet-button>--}}
-{{--            </div>--}}
-{{--        </form>--}}
-{{--    </x-jet-authentication-card>--}}
-{{--</x-guest-layout>--}}
-
-
 @extends('layout.navbar')
 
 @section('navbar')
@@ -77,6 +39,32 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Newsletter -->
+
+    <div class="newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
+                        <div class="newsletter_title_container">
+                            <div class="newsletter_icon"><img src="{{ asset('frontend/images/send.png')}}" alt=""></div>
+                            <div class="newsletter_title">Sign up for Newsletter</div>
+                            <div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
+                        </div>
+                        <div class="newsletter_content clearfix">
+                            <form action="#" class="newsletter_form">
+                                <input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
+                                <button class="newsletter_button">Subscribe</button>
+                            </form>
+                            <div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
+                        </div>
                     </div>
                 </div>
             </div>

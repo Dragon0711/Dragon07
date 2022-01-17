@@ -8,36 +8,23 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 
-
-
-
-class User extends Authenticatable implements MustVerifyEmail
+class Admin extends Authenticatable implements MustVerifyEmail
 {
 
     use HasFactory;
     use Notifiable;
 
 
+    protected $table = 'admins';
+    protected $guard = 'admin';
 
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'email',
-        'phone',
         'password',
         'image',
-        'role_id',
-        'social_id',
-        'social_type',
+
     ];
-
-
-
 
 
     /**
@@ -67,24 +54,25 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $appends = [
-        'profile_photo_url',
+        'image',
     ];
 
-    public function WishListUser()
+
+
+
+
+
+    public function role()
     {
-        return $this->hasMany(WishList::class,'user_id','id');
+        return $this->belongsTo(Role::class);
     }
 
-    public function recentViewProducts()
+
+    public function hasPermission($title)
     {
-        return $this->hasMany(RecentlyView::class,'user_id');
+        if (! $this->role) {
+            return false;
+        }
+        return $this->role->permissions()->where('title',$title)->exists();
     }
-
-
-
-
-
-
-
-
 }

@@ -27,10 +27,10 @@ class CategoryController extends Controller
 
     public function AllCat()
     {
-
+//        dd(Auth::user());
         $this->authorize('viewAll',Category::class);
 
-//        dd(Auth::user());
+
 //        abort_if(Gate::denies('show_categories'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return $this->categoryInterface->AllCat();
     }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<form method="post" id="logout-form" action="{{route('user.logout')}}" style="display: none">
+<form method="POST" id="logout-form" action="{{route('user.logout')}}" style="display: none">
     @csrf
+    {{ method_field('POST') }}
 </form>
 <head>
     <title>OneTech</title>
@@ -46,25 +47,11 @@
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png')}}" alt=""></div>+79998068033</div>
                         <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png')}}" alt=""></div><a href="mailto:fastsales@gmail.com">darsssh8@gmail.com</a></div>
                         <div class="top_bar_content ml-auto">
-
-                            <div class="top_bar_menu">
-                                @if(\Illuminate\Support\Facades\Auth::check() && Auth::user()->user_type !== 0)
-                                <ul class="standard_dropdown top_bar_dropdown">
-                                    <li>
-                                        <a href="{{ route('admin.dashboard') }}">Admin Dashboard<i class="fas fa-chevron-down"></i></a>
-                                        <ul>
-                                            <li><a href="#">Any Thing</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                @endif
-                            </div>
-
                             <div class="top_bar_user">
                                 <div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div>
                                 @guest
 {{--                                <div><a href="{{ route('register') }}">Register/Login</a></div>--}}
-                                <div><a href="{{ route('login') }}">Login</a></div>
+                                    <div><a href="{{ route('login') }}">Login</a></div>
                                 @else
                                     <div class="top_bar_menu">
                                         <ul class="standard_dropdown top_bar_dropdown">
@@ -78,12 +65,10 @@
                                             </li>
                                         </ul>
                                     </div>
-
                                 @endguest
 
-
                                 @auth
-                                <div><a id="logout-link" href="#">Log Out</a></div>
+                                    <div><a id="logout-link" href="#">Log Out</a></div>
                                 @endauth
                             </div>
                         </div>

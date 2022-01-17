@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Admin;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -16,9 +17,9 @@ class CategoryPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAll(User $user)
+    public function viewAll(Admin $admin)
     {
-        return  $user->hasPermission('view_all_cat');
+        return  $admin->hasPermission('view_all_cat');
 
     }
 
@@ -29,9 +30,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function show(User $user)
+    public function show(Admin $admin)
     {
-        return  $user->hasPermission('view_cat');
+        return  $admin->hasPermission('view_cat');
     }
 
     /**
@@ -40,15 +41,15 @@ class CategoryPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(Admin $admin)
     {
-        return  $user->hasPermission('create_cat');
+        return  $admin->hasPermission('create_cat');
     }
 
 
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
-        return  $user->hasPermission('edit_cat');
+        return  $admin->hasPermission('edit_cat');
     }
 
     /**
@@ -58,9 +59,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Category $category)
+    public function update(Admin $admin)
     {
-        return  $user->hasPermission('update_cat');
+        return  $admin->hasPermission('update_cat');
 
     }
 
@@ -71,9 +72,9 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Category $category)
+    public function delete(Admin $admin)
     {
-        return  $user->hasPermission('delete_cat');
+        return  $admin->hasPermission('delete_cat');
     }
 
     /**
@@ -83,7 +84,7 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Category $category)
+    public function restore(Admin $admin)
     {
         //
     }
@@ -95,7 +96,7 @@ class CategoryPolicy
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Category $category)
+    public function forceDelete(Admin $admin)
     {
         //
     }

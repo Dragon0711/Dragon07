@@ -21,7 +21,6 @@ class PaymentRepository implements PaymentInterface
     public function __construct()
     {
 
-
     }
 
 

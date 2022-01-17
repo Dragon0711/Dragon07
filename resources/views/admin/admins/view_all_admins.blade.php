@@ -28,8 +28,8 @@
                             <th class="wd-15p">Id</th>
                             <th class="wd-15p">Name</th>
                             <th class="wd-15p">Email</th>
-                            <th class="wd-15p">Role Id</th>
-                            <th class="wd-15p">Access</th>
+                            <th class="wd-15p">Role Name</th>
+                            <th class="wd-15p">Permission</th>
                             <th class="wd-15p">Action</th>
 
 
@@ -37,45 +37,24 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @forelse($admins as $value)
+                        @forelse($admins as $admin)
                             <tr role="row" class="odd">
-                                <td>{{ $value->id }}</td>
-                                <td>{{ $value->name }}</td>
-                                <td>{{ $value->email }} </td>
-
-                                <td>{{ $value->role_id }}</td>
+                                <td>{{ $admin->id }}</td>
+                                <td>{{ $admin->name }}</td>
+                                <td>{{ $admin->email }} </td>
+{{--                                <td>{{ $admin->roleName }}</td>--}}
+                                    <td>{{ $admin->role->role_name ?  : ''}}</td>
                                 <td>
-                                @if($value->brands == 1)
-                                    <span class="badge badge-success">Brands</span>
-                                        @else
-                                        @endif
-                                    @if($value->categories == 1)
-                                        <span class="badge badge-success">categories</span>
-                                    @else
-                                    @endif
-                                    @if($value->subcategories == 1)
-                                        <span class="badge badge-success">subcategories</span>
-                                    @else
-                                    @endif
-                                    @if($value->coupons == 1)
-                                        <span class="badge badge-success">coupons</span><br>
-                                    @else
-                                    @endif
-                                    @if($value->news_laters == 1)
-                                        <span class="badge badge-success">news laters</span>
-                                    @else
-                                    @endif
-                                    @if($value->orders == 1)
-                                        <span class="badge badge-success">orders</span>
-                                    @else
-                                    @endif
-                                    @if($value->products == 1)
-                                        <span class="badge badge-success">products</span>
-                                    @else
-                                    @endif
+                                  <ul>
+                                      @forelse($admin->role->permissions as $permission)
+                                          <li> {{ $permission->title }}</li>
+                                      @endforeach
+                                  </ul>
                                 </td>
                                 <td>
-                                    <a href="{{ URL("admin/delete/admin/$value->id") }}" class="btn btn-sm btn-danger" id="delete" title="Delete"><i class="fa fa-trash"></i> </a>
+                                    <a href="{{ URL("admin/edit/".$admin->id) }}" class="btn btn-sm btn-info" title="Edit"><i class="fa fa-edit"></i> </a>
+
+                                    <a href="{{ URL("admin/delete/".$admin->id) }}" class="btn btn-sm btn-danger" id="delete" title="Delete"><i class="fa fa-trash"></i> </a>
                                 </td>
 
                                 @empty

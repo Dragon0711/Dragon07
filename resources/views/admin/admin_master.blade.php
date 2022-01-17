@@ -60,7 +60,7 @@
 <body>
 
 <!-- ########## START: LEFT PANEL ########## -->
-<div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> starlight</a></div>
+<div class="sl-logo"><a href="{{ route('admin.dashboard') }}"><i class="icon ion-android-star-outline"></i> starlight</a></div>
 <div class="sl-sideleft">
     <div class="input-group input-group-search">
         <input type="search" name="search" class="form-control" placeholder="Search">
@@ -86,8 +86,12 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
+            @can('viewAll',\App\Models\Category::class)
             <li class="nav-item"><a href="{{ route('categories') }}" class="nav-link">Category</a></li>
+            @endcan
+            @can('viewAll',\App\Models\SubCategory::class)
             <li class="nav-item"><a href="{{ route('SubCat') }}" class="nav-link">Sub Category</a></li>
+            @endcan
             <li class="nav-item"><a href="{{ route('brands') }}" class="nav-link">Brand</a></li>
         </ul>
 
@@ -159,7 +163,7 @@
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('orders.report') }}" class="nav-link">Reports Search</a></li>
         </ul>
-
+        @can('show',\App\Models\Role::class)
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="icon ion-person-add tx-20"></i>
@@ -167,10 +171,13 @@
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+
         <ul class="sl-menu-sub nav flex-column">
             <li class="nav-item"><a href="{{ route('all.admins') }}" class="nav-link">All admins</a></li>
             <li class="nav-item"><a href="{{ route('add.admin') }}" class="nav-link">Add Admin</a></li>
+            <li class="nav-item"><a href="{{ route('add.role') }}" class="nav-link">Add Role</a></li>
         </ul>
+        @endcan
 
         <a href="{{ route('admin.mailbox') }}" class="sl-menu-link">
             <div class="sl-menu-item">
@@ -222,19 +229,19 @@
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
                     @if(\Illuminate\Support\Facades\Auth::check())
                     <span class="logged-name"><span class="hidden-md-down"> {{ Auth::user()->name }} </span>
-                    <img src="{{ asset('upload/user_images/'.Auth::user()->image) }}" class="wd-32 rounded-circle" alt="">
+                    <img src="{{ asset('upload/admin_images/'.Auth::user()->image) }}" class="wd-32 rounded-circle" alt="">
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href="{{ route('profile.edit') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
+                        <li><a href="{{ route('admin.profile.edit') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
                         <li><a href="{{ route('password.request') }}"><span><i class="icon ion-ios-person-outline"></i></span>  Password Change</a></li>
 
                         <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
                         <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href="{{ route('user.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a href="{{ route('admin.logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->

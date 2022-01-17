@@ -36,7 +36,7 @@
                      <form method="get" action="{{url('admin/search/orders/month')}}" >
                          @csrf
                          <div class="row justify-content-center" ><br>
-                             <div class="card" style="margin-top: 21px">
+                             <div class="card" style="margin-top: 7px">
                                  <div class="card-header">
                                      <h4>Search by Month</h4>
                                      <div class="card-body">
@@ -68,7 +68,7 @@
                      <form method="get" action="{{url('admin/search/orders/year')}}">
                          @csrf
                          <div class="row justify-content-center" ><br>
-                             <div class="card" style="margin-top: 21px">
+                             <div class="card" style="margin-top: 7px">
                                  <div class="card-header">
                                      <h4>Search by Year</h4>
                                      <div class="card-body">

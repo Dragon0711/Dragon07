@@ -38,9 +38,12 @@
                         <td tabindex="0" class="sorting_1">{{ $key+1 }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
+                            @can('edit',\App\Models\Category::class)
                             <a href="{{ URL("admin/edit/categories/$category->id") }}" class="btn btn-sm btn-info edit-btn">edit</a>
-
+                            @endcan
+                            @can('delete',\App\Models\Category::class)
                             <a href="{{ URL("admin/delete/categories/$category->id") }}" class="btn btn-sm btn-danger" id="delete">delete</a>
+                            @endcan
                         </td>
                     </tr>
                         @endforeach

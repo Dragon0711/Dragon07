@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -20,39 +21,39 @@ class SubCategoryPolicy
     }
 
 
-    public function viewAll(User $user)
+    public function viewAll(Admin $admin)
     {
-        return  $user->hasPermission('view_all_Subcat');
+        return  $admin->hasPermission('view_all_Subcat');
 
     }
 
-    public function show(User $user)
+    public function show(Admin $admin)
     {
-        return  $user->hasPermission('view_Subcat');
+        return  $admin->hasPermission('view_Subcat');
 
     }
 
-    public function create(User $user)
+    public function create(Admin $admin)
     {
-        return  $user->hasPermission('create_Subcat');
+        return  $admin->hasPermission('create_Subcat');
 
     }
 
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
-        return  $user->hasPermission('edit_Subcat');
+        return  $admin->hasPermission('edit_Subcat');
 
     }
 
-    public function update(User $user)
+    public function update(Admin $admin)
     {
-        return  $user->hasPermission('update_Subcat');
+        return  $admin->hasPermission('update_Subcat');
 
     }
 
-    public function delete(User $user)
+    public function delete(Admin $admin)
     {
-        return  $user->hasPermission('delete_Subcat');
+        return  $admin->hasPermission('delete_Subcat');
 
     }
 }

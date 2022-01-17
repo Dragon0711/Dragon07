@@ -3,7 +3,7 @@
 @section('admin')
 
 
-    <form action="{{ route('store.admin') }}" method="post">
+    <form action="{{ URL("admin/update/$data->id") }}" method="post">
         @csrf
         <div class="container">
             <div class="row">
@@ -28,7 +28,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="form-control-label">name: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="name" value="" placeholder="name">
+                            <input class="form-control" type="text" name="name" value="{{ old('name',$data->name) }}" >
                             @error('name')
                             {{ $message }}
                             @enderror
@@ -38,7 +38,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label class="form-control-label">Email: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="email" name="email" value="" placeholder="Email">
+                            <input class="form-control" type="email" name="email" value="{{old('email',$data->email)}}" >
                             @error('email')
                             {{ $message }}
                             @enderror
@@ -48,18 +48,8 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <label class="form-control-label">Phone: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="text" name="phone" value="" placeholder="Mobile Phone">
+                            <input class="form-control" type="text" name="phone" value="{{old('phone',$data->phone)}}" >
                             @error('name')
-                            {{ $message }}
-                            @enderror
-                        </div>
-                    </div><!-- col-4 -->
-
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <label class="form-control-label">Password: <span class="tx-danger">*</span></label>
-                            <input class="form-control" type="password" name="password" value="" placeholder="password">
-                            @error('password')
                             {{ $message }}
                             @enderror
                         </div>
@@ -70,9 +60,9 @@
                         <div class="form-group mg-b-10-force">
                             <label class="form-control-label">Role: <span class="tx-danger">*</span></label>
                             <select class="form-control select2" data-placeholder="Choose Role" name="role_id" >
-                               <option value="">--- Select ---</option>
+                                <option value="">--- Select ---</option>
                                 @foreach($roles as $role)
-                                    <option value="{{$role->id}}">{{ $role->role_name }}</option>
+                                    <option value="{{$role->id}}" {{ $role->id == $data->role_id ? "selected"  : '' }}>{{ $role->role_name }}</option>
                                 @endforeach
                             </select>
                         </div>

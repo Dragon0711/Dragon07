@@ -27,7 +27,7 @@ class UserRepository implements UserInterface {
         $validator = Validator::make($request->all(), [
             'name' => 'required', 'string', 'max:255',
             'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-            'phone' => 'required', 'regex:/(01)[0-9]{11}/',
+            'phone' => 'required',
             'password' => 'required', 'string', 'min:8', 'confirmed',
         ]);
         if($validator->fails()){
@@ -37,9 +37,7 @@ class UserRepository implements UserInterface {
 
             $user['name'] = $request->name;
             $user['email'] = $request->email;
-            $user['phone'] = $request->phon;
-            $user['role_id'] = 0;
-            $user['user_type'] = 0;
+            $user['phone'] = $request->phone;
             $user['password'] = Hash::make($request->password);
         $user->save();
 
@@ -73,14 +71,14 @@ class UserRepository implements UserInterface {
 
 
 
-
     public function logout($request)
     {
-        Auth::logout();
-//        Auth::guard()->logout();
+        Auth::guard()->logout();
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
 
         $notificat = array(
             'message' => 'successfully logout',
