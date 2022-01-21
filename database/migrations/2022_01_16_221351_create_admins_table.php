@@ -20,7 +20,7 @@ class CreateadminsTable extends Migration
             $table->string('phone')->nullable();
             $table->foreignId('role_id')->default(0)->constrained();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
+            $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('image')->nullable();
