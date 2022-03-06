@@ -20,7 +20,7 @@ class CategoryRepository implements CategoryInterface{
 
     public function AllCat(){
 
-       $categories = $this->categoryModel::all();
+       $categories = $this->categoryModel::paginate(10);
         return view('admin.category.category',compact('categories'));
     } // End Method
 

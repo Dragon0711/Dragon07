@@ -58,7 +58,7 @@ Route::group(['prefix'=>'user','middleware' => ['guest:web','noBack']], function
 
 
 
-/*************  ------FRONTEND SECTION------ *****************/
+  /*************  ------FRONTEND SECTION------ *****************/
 
     Route::POST('add/newslater', [NewsLaterController::class, 'subscriber']);
 

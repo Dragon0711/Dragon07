@@ -28,7 +28,7 @@ class RoleRepository implements RoleInterface {
     {
 
 
-        $admins = $this->adminModel::where('role_id' ,'!=', 0)->get();
+        $admins = $this->adminModel::where('role_id' ,'!=', 0)->paginate(10);
 //        $admins = DB::table('users')
 //            ->join('roles','users.role_id','roles.id')
 //            ->select('users.*','roles.name as roleName')

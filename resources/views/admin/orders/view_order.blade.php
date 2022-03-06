@@ -18,7 +18,7 @@
                                 <table class="table">
                                     <tr>
                                         <th>Name :</th>
-                                        <th>{{$order->name}}</th>
+                                        <th>{{$order->userName}}</th>
                                     </tr>
                                     <tr>
                                         <th>Phone :</th>

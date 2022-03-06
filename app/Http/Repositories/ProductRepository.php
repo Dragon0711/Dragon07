@@ -42,7 +42,7 @@ class ProductRepository implements ProductInterface {
     public function AllProducts()
     {
 
-        $product = $this->productModel::all();
+        $product = $this->productModel::paginate(10);
 
         return view('admin.products.index',['product'=>$product ]);
     } // End Method
@@ -299,7 +299,7 @@ class ProductRepository implements ProductInterface {
 //        echo $item;
 
         $products = DB::table('products')->where('name','LIKE',"%$item%")
-            ->paginate(20);
+            ->paginate(10);
 
         return view('layout.search',compact('products' ,'item'));
     }

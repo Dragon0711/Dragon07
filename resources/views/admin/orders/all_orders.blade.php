@@ -58,9 +58,11 @@
                     </table>
                     <div class="dataTables_info" id="datatable1_info" role="status" aria-live="polite"></div>
                     <div class="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
-                        <a class="paginate_button previous disabled" aria-controls="datatable1" data-dt-idx="0" tabindex="0" id="datatable1_previous">Previous</a>
-                        <span><a class="paginate_button current" aria-controls="datatable1" data-dt-idx="1" tabindex="0">1</a></span>
-                        <a class="paginate_button next" aria-controls="datatable1" data-dt-idx="7" tabindex="0" id="datatable1_next">Next</a>
+{{--                        <a class="paginate_button previous disabled" aria-controls="datatable1" data-dt-idx="0" tabindex="0" id="datatable1_previous">Previous</a>--}}
+{{--                        <span><a class="paginate_button current" aria-controls="datatable1" data-dt-idx="1" tabindex="0">1</a></span>--}}
+{{--                        <a class="paginate_button next" aria-controls="datatable1" data-dt-idx="7" tabindex="0" id="datatable1_next">Next</a>--}}
+                        {{ $orders->links() }}
+
                     </div>
                 </div>
             </div><!-- table-wrapper -->

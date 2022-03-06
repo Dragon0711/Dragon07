@@ -21,7 +21,7 @@ class OrdersRepository implements OrdersInterface{
 
     public function showOrder()
     {
-        $orders = DB::table('orders')->where('status',0)->get();
+        $orders = DB::table('orders')->where('status',0)->paginate(10);
 
         return view('admin.orders.all_orders',compact('orders'));
     }//END METHOD
@@ -30,7 +30,7 @@ class OrdersRepository implements OrdersInterface{
     {
         $order = DB::table('orders')
             ->join('users','orders.user_id','users.id')
-            ->select('orders.*','users.name','users.phone')
+            ->select('orders.*','users.name as userName','users.phone')
             ->where('orders.id',$request->id)
             ->first();
 //        dd($order);
@@ -113,7 +113,7 @@ class OrdersRepository implements OrdersInterface{
 
     public function paymentAccept()
     {
-      $acceptPayment =  DB::table('orders')->where('status',1)->get();
+      $acceptPayment =  DB::table('orders')->where('status',1)->paginate(10);
 
         return view('admin.orders.orders_payment_accepted',compact('acceptPayment'));
     }//END METHOD
@@ -121,7 +121,7 @@ class OrdersRepository implements OrdersInterface{
 
     public function ordersCanceled()
     {
-      $ordersCanceled =  DB::table('orders')->where('status',4)->get();
+      $ordersCanceled =  DB::table('orders')->where('status',4)->paginate(10);
 
         return view('admin.orders.orders_canceled',compact('ordersCanceled'));
     }//END METHOD
@@ -136,7 +136,7 @@ class OrdersRepository implements OrdersInterface{
     public function successDelivery()
     {
 
-        $successDelivery =  DB::table('orders')->where('status',3)->get();
+        $successDelivery =  DB::table('orders')->where('status',3)->paginate(10);
 
         return view('admin.orders.success_delivery',compact('successDelivery'));
     }//END METHOD
@@ -148,7 +148,7 @@ class OrdersRepository implements OrdersInterface{
         $orderReturned = DB::table('return_orders')
         ->join('users','return_orders.user_id','users.id')
             ->select('return_orders.*','users.name')
-            ->get();
+            ->paginate(10);
 
         return view('admin.returnOrders.all_order',compact('orderReturned'));
     }
