@@ -12,7 +12,7 @@
 
         <div class="card pd-20 pd-sm-40">
             <h6 class="card-body-title">Roles Table
-                <a href="{{url("/admin/roles/create")}}" class="btn btn-sm btn-success" style="float: right;"
+                <a href="{{url("/admin/add/role")}}" class="btn btn-sm btn-success" style="float: right;"
                   >Add New</a>
             </h6>
 
@@ -34,10 +34,10 @@
                                 <td tabindex="0" class="sorting_1">{{ $loop->iteration}}</td>
                                 <td>{{ $value->name }}</td>
                                 <td>
-                                    <a href="{{ URL("admin/edit/coupon/$value->id") }}"
+                                    <a href="{{ URL("admin/edit/$value->id") }}"
                                        class="btn btn-sm btn-info edit-btn">edit</a>
 
-                                    <a href="{{ URL("admin/delete/coupon/$value->id") }}" class="btn btn-sm btn-danger"
+                                    <a href="{{ URL("admin/delete/$value->id") }}" class="btn btn-sm btn-danger"
                                        id="delete">delete</a>
                                 </td>
                             </tr>
